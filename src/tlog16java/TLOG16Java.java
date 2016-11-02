@@ -1,5 +1,6 @@
 package tlog16java;
 import java.time.*;
+import java.util.List;
 
 
 /*
@@ -7,21 +8,37 @@ import java.time.*;
  */
 
 public class TLOG16Java {
+   
+class Task{
+    String TaskId;
+    LocalTime startTime;
+    LocalTime endTime;
+    String Comment;
+}
 
-    long requiredMinPerDay = 450;
+class WorkDay{
+    List tasks;
+    long requiredMinPerDay;
     LocalDate actualDay = LocalDate.now();
-    String taskId,comment;
-    LocalTime startTime, endTime;
-    YearMonth date;
-    
     long sumPerDay;
+}
+
+class WorkMonth{
+    List days;
+    YearMonth date;
+    long sumPerMonth;
     long requiredMinPerMonth;
-    long sumPerMontg;
+}
+
+class TimeLogger{
+    List months;
+}
     
     public static void main(String[] args) {
         
     }
-    
+   
+
 }
 
 
