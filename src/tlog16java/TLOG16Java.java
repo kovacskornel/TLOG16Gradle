@@ -1,44 +1,31 @@
 package tlog16java;
 import java.time.*;
-import java.util.List;
-
 
 /*
  * @author precognox kkovacs
  */
 
 public class TLOG16Java {
+
+
+
+
+
+
+
+
    
-class Task{
-    String TaskId;
-    LocalTime startTime;
-    LocalTime endTime;
-    String Comment;
-}
-
-class WorkDay{
-    List tasks;
-    long requiredMinPerDay;
-    LocalDate actualDay = LocalDate.now();
-    long sumPerDay;
-}
-
-class WorkMonth{
-    List days;
-    YearMonth date;
-    long sumPerMonth;
-    long requiredMinPerMonth;
-}
-
-class TimeLogger{
-    List months;
-}
-    
     public static void main(String[] args) {
-        
+        TimeString h = new TimeString();
+        boolean y=isWeekDay();
+        h.H1 = "1";
+        h.H2 = "3";
+        h.M1 = "4";
+        h.M2 = "9";
+        LocalTime t = stringToLocalTime(h);
+        String a = t.toString();
+        System.out.println(a);
+        if(y)  System.out.println("Weekday");
+    
     }
-   
-
 }
-
-
