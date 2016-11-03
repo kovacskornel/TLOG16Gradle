@@ -44,6 +44,7 @@ public class WorkDay{
         {
             System.out.println("Invalid length");
         }
+        else tasks.add(t);
     }
     
     public boolean isWeekDay()
