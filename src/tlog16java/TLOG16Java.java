@@ -4,8 +4,9 @@ package tlog16java;
  */
 
 public class TLOG16Java {
-    static TimeLoggerUI useri = new TimeLoggerUI();
     public static void main(String[] args) {
-        useri.menu();
+    TimeLoggerUI useri = new TimeLoggerUI();
+    TimeLogger TI = new TimeLogger();
+    useri.menu();
     }
 }

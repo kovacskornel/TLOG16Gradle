@@ -30,15 +30,14 @@ public class WorkMonth {
         return x != null;
     }
     
-public void addWorkDay(WorkDay wd, boolean isWeekendEnabled) {
- 
-    isWeekendEnabled = false;
-        if (isWeekendEnabled == true) {
-            days.add(wd);
-        }else if(!(wd.isWeekDay()) && isWeekendEnabled == false){
-            
+    public void addWorkDay(WorkDay wd, boolean isWeekendEnabled) 
+    {
+        isWeekendEnabled = false;
+            if (isWeekendEnabled == true) {
+                days.add(wd);
+            }else if(!(wd.isWeekDay()) && isWeekendEnabled == false){
         }
-    }
+}
     
     public long getExtraMinPerMonth(WorkDay wd)
     {
