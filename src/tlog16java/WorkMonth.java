@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tlog16java;
 
 import java.time.YearMonth;
@@ -25,9 +20,24 @@ public class WorkMonth {
     long sumPerMonth;
     long requiredMinPerMonth;
  
+    public boolean isSameMonth(WorkDay wd)
+    {
+        return (wd.actualDay.getMonthValue()) == date.month;
+    }
+    
     public boolean IsNewDate(WorkDay x)
     {
         return x != null;
+    }
+    
+public void addWorkDay(WorkDay wd, boolean isWeekendEnabled) {
+ 
+    isWeekendEnabled = false;
+        if (isWeekendEnabled == true) {
+            days.add(wd);
+        }else if(!(wd.isWeekDay()) && isWeekendEnabled == false){
+            
+        }
     }
     
     public long getExtraMinPerMonth(WorkDay wd)
@@ -35,9 +45,9 @@ public class WorkMonth {
         long h=0;
         for(int i=1; i<YearMonth.now().lengthOfMonth();i++)
         {
-            if(isWeekDay())
+            if(wd.isWeekDay())
             {
-                h+=getExtraMinPerDay(wd.requiredMinPerDay,wd.sumPerDay);
+                h+=wd.getExtraMinPerDay(wd.requiredMinPerDay,wd.sumPerDay);
             }
         }
     return h;

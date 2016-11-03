@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tlog16java;
 
 import java.time.DayOfWeek;
@@ -19,15 +15,6 @@ public class WorkDay{
     long requiredMinPerDay=450;
     LocalDate actualDay = LocalDate.now();
     long sumPerDay;
-    
-    public boolean isWeekDay()
-    {
-        LocalDate today;
-        DayOfWeek x;
-        today = LocalDate.now();
-        x = today.getDayOfWeek();
-        return !((x == DayOfWeek.SATURDAY) || (x == DayOfWeek.SUNDAY));
-    }
     
     public long getExtraMinPerDay(long sum,long req)
     {
@@ -57,6 +44,15 @@ public class WorkDay{
         {
             System.out.println("Invalid length");
         }
+    }
+    
+    public boolean isWeekDay()
+    {
+        LocalDate today;
+        DayOfWeek x;
+        today = LocalDate.now();
+        x = today.getDayOfWeek();
+        return !((x == DayOfWeek.SATURDAY) || (x == DayOfWeek.SUNDAY));
     }
     
 }
