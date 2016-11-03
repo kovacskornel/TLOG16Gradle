@@ -1,4 +1,7 @@
 package tlog16java;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.YearMonth;
 import java.util.Scanner;
 /**
  *
@@ -17,14 +20,26 @@ public void listMonths()
             {
                 for(int i=0;i<TimeLogger.getMonths().size();i++)
                 {
+                    System.out.println(i);
                     System.out.println(TimeLogger.months.get(i));
                 }   
             }
 }
     
+public void createDay(int month, int day, long workh)
+{
+    WorkMonth workM = new WorkMonth();
+    WorkDay wd = new WorkDay();
+    TimeLogger tl = new TimeLogger();
+    wd.requiredMinPerDay = workh;
+    wd.setActualDay(LocalDate.of(YearMonth.now().getYear(), month, day));
+    workM.addWorkDay(wd, false);
+}
+
 public void listDays(int Month)
 {
         WorkMonth WorkMonth = new WorkMonth();
+        TimeLogger tl = new TimeLogger();
             if(WorkMonth.getDays() == null)
             {
                 System.out.println("No days available");
@@ -32,8 +47,8 @@ public void listDays(int Month)
             else
             {
                 for(int i=0;i<WorkMonth.getDays().size();i++)
-                {
-                if(WorkMonth.date.month == Month) System.out.println(WorkMonth.getDays().get(i));
+                {                        
+                            System.out.println(WorkMonth.getDays().get(i));
                 }   
             }
 }
@@ -89,10 +104,18 @@ public void menuSelect()
         }
         case 4:
         {
-            menu();break;
+
+            break;
         }
         case 5:
         {
+            listMonths();
+            System.out.println("Please give me the month then the day");
+            int month = user_input.nextInt();
+            int day = user_input.nextInt();
+            System.out.println("Please tell me the required working hours in minutes");
+            long workh = user_input.nextLong();
+            createDay(month, day, workh);
             menu();break;
         }
         case 6:

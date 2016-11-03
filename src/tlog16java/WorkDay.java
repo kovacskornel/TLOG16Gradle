@@ -31,9 +31,9 @@ public class WorkDay{
         if(required != 0) requiredMinPerDay = required;
     }
     
-    public void setActualDay(LocalDate date)
+    public LocalDate setActualDay(LocalDate date)
     {
-        actualDay = date;
+        return date;
     }
     
     public long getSum()
