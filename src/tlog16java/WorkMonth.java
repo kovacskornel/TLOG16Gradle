@@ -1,5 +1,6 @@
 package tlog16java;
 
+import java.time.Month;
 import java.time.YearMonth;
 import java.util.List;
 import java.util.ArrayList;
@@ -33,7 +34,6 @@ public class WorkMonth {
     
     public void addWorkDay(WorkDay wd, boolean isWeekendEnabled) 
     {
-        isWeekendEnabled = false;
             if (isWeekendEnabled == true) {
                 days.add(wd);
             }else if(!(wd.isWeekDay()) && isWeekendEnabled == false){
@@ -75,7 +75,7 @@ public class WorkMonth {
     
     public WorkMonth(int year, int month)
     {
-        date.year= year;
+        date.year = year;
         date.month = month;
     }
     

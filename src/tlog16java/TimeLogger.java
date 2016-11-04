@@ -16,7 +16,8 @@ public class TimeLogger{
     }
     
 
-    public boolean isNewMonth(WorkMonth wm, TimeLogger tl) {
+    public boolean isNewMonth(WorkMonth wm) {
+        TimeLogger tl = new TimeLogger();
         boolean isnew = true;
         int i;
         for (i = 0; i < tl.getMonths().size(); i++) {
@@ -28,15 +29,15 @@ public class TimeLogger{
         return isnew;
     }
     
-    public void addMonth(WorkMonth wm, TimeLogger tl) {
-        if (isNewMonth(wm, tl)) {
+    public void addMonth(WorkMonth wm) {
+        if (isNewMonth(wm)) {
             if (getMonths().add(wm)) {
                 System.out.println("Successfully added a WorkMonth");
             } else {
                 System.out.println("Error");
             }
         } else {
-            System.out.println("This is month is already there, top edit it see the options!");
+            System.out.println("This month is already existing!");
         }
     }
     

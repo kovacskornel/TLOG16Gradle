@@ -6,7 +6,7 @@ import java.time.LocalTime;
  *
  * @author precognox
  */
-public class Task{
+public final class Task{
     
     public boolean isValidRedmineTaskId(String ID)
     {
@@ -109,4 +109,5 @@ public class Task{
     {
         return min%15==0;
     } 
+    
 }
