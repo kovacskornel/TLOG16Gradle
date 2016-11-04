@@ -1,6 +1,6 @@
 package tlog16java;
 import java.time.LocalDate;
-import java.time.Month;
+import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.Scanner;
 
@@ -79,9 +79,16 @@ public void finishTask(int m, int d, String end)
     
 }
 
-public void startTask(int m, int d, String taskid, String comment)
+public void startTask(int m, int d, String taskid,String sTime, String comment, TimeLogger tl)
 {
-    
+    WorkMonth WM = tl.getMonths().get(m-1);
+    Task task = new Task();
+    task.comment = comment;
+    LocalTime time = task.stringToLocalTime(sTime);
+    task.taskId = taskid;
+    task.startTime.startHour = time.getHour();
+    task.startTime.startMin = time.getMinute();
+    WM.getDays().get(d-1).addTask(task);
 }
 
 public void delTask(int m, int d, String tid)
@@ -154,7 +161,7 @@ public void menuSelect(TimeLogger tl)
         case 6:
         {
             int m,d;
-            String taskid, comment;
+            String taskid, comment, sTime;
             System.out.println("Please tell me the month");
             m = user_input.nextInt();
              System.out.println("Please tell me the day");           
@@ -164,7 +171,8 @@ public void menuSelect(TimeLogger tl)
             System.out.println("Please tell me what you do");
             comment = user_input.next();
             System.out.println("Please tell me when you start (HH:MM)");
-            startTask(m,d,taskid,comment);
+            sTime = user_input.next();
+            startTask(m,d,taskid,sTime,comment, tl);
             break;
         }
         case 7:

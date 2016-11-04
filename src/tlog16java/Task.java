@@ -27,18 +27,13 @@ public final class Task{
           int endHour;
           int endMin;
     }
-   
-    public class TimeString{
-        String H1;
-        String H2;
-        String M1;
-        String M2;
-    }
  
-    public LocalTime stringToLocalTime(TimeString a){
-    LocalTime x;
-    String v = a.H1 + a.H2 + ":" +a.M1+a.M2;
-    x = LocalTime.parse(v);
+    public LocalTime stringToLocalTime(String a){
+    int h, m;
+    String[] parts = a.split(":");
+    h = Integer.parseInt(parts[0]);
+    m = Integer.parseInt(parts[1]);
+    LocalTime x = LocalTime.of(h, m);
     return x;
     }
     
@@ -71,10 +66,10 @@ public final class Task{
         }
     }
     
-    public void setStartTime(TimeString time)
+    public void setStartTime(LocalTime time)
     {        
-            startTime.startHour = stringToLocalTime(time).getHour();
-            startTime.startMin = stringToLocalTime(time).getMinute();
+            startTime.startHour = time.getHour();
+            startTime.startMin = time.getMinute();
     }
     
     public EndTime getEndTime()
@@ -90,10 +85,10 @@ public final class Task{
             endTime.endMin = m;
         }
     }
-    public void setEndTime(TimeString time)
+    public void setEndTime(LocalTime time)
     {        
-            endTime.endHour = stringToLocalTime(time).getHour();
-            endTime.endMin = stringToLocalTime(time).getMinute();
+            endTime.endHour = time.getHour();
+            endTime.endMin = time.getMinute();
     }    
     public String getComment()
     {
