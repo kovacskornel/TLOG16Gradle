@@ -14,12 +14,22 @@ public class WorkDay{
     
     public List<Task> tasks = new ArrayList<>();
     public long requiredMinPerDay=450;
-    public LocalDate actualDay = LocalDate.now();
+    public LocalDate actualDay;
     public long sumPerDay;
+    
+    public LocalDate getActualDay()
+    {
+        return actualDay;
+    }
     
     public long getExtraMinPerDay(long sum,long req)
     {
         return (sum - req);
+    }
+    
+    public List<Task> getTasks()
+    {
+        return tasks;
     }
     
     public long getRequired()

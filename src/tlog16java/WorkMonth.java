@@ -24,11 +24,11 @@ public class WorkMonth {
     
 
     
-    List<WorkDay> days = new ArrayList<>();
-    thisYearMonth dateint;
-    YearMonth date;
-    long sumPerMonth;
-    long requiredMinPerMonth;
+    public List<WorkDay> days = new ArrayList<>();
+    public thisYearMonth dateint;
+    public YearMonth date;
+    public long sumPerMonth;
+    public long requiredMinPerMonth;
  
     public boolean isSameMonth(WorkDay wd)
     {
@@ -45,8 +45,9 @@ public class WorkMonth {
             if (isWeekendEnabled == true) {
                 days.add(wd);
             }else if(!(wd.isWeekDay()) && isWeekendEnabled == false){
+                System.out.println("This is not a workday!");
         }
-}
+    }
     
     public long getExtraMinPerMonth(WorkDay wd)
     {
@@ -61,7 +62,7 @@ public class WorkMonth {
     return h;
     }
     
-    public List getDays()
+    public List<WorkDay> getDays()
     {
         return days;
     }
