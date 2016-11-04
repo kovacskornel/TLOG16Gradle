@@ -4,6 +4,7 @@ package tlog16java;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -11,10 +12,10 @@ import java.util.List;
  */
 public class WorkDay{
     
-    List tasks;
-    long requiredMinPerDay=450;
-    LocalDate actualDay = LocalDate.now();
-    long sumPerDay;
+    public List<Task> tasks = new ArrayList<>();
+    public long requiredMinPerDay=450;
+    public LocalDate actualDay = LocalDate.now();
+    public long sumPerDay;
     
     public long getExtraMinPerDay(long sum,long req)
     {

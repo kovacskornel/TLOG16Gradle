@@ -2,6 +2,7 @@ package tlog16java;
 
 import java.time.YearMonth;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -11,12 +12,12 @@ public class WorkMonth {
     
     public class thisYearMonth
     {
-        int year = YearMonth.now().getYear();
-        int month = YearMonth.now().getMonthValue();
+        public int year = YearMonth.now().getYear();
+        public int month = YearMonth.now().getMonthValue();
     }
     
-    List days;
-    thisYearMonth date;
+    public List<WorkDay> days = new ArrayList<>();
+    public thisYearMonth date;
     long sumPerMonth;
     long requiredMinPerMonth;
  
@@ -70,6 +71,12 @@ public class WorkMonth {
     public long getReqMinPerMonth()
     {
         return requiredMinPerMonth;
+    }
+    
+    public WorkMonth(int year, int month)
+    {
+        date.year= year;
+        date.month = month;
     }
     
 }

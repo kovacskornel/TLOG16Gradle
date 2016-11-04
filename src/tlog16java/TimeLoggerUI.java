@@ -1,18 +1,20 @@
 package tlog16java;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.YearMonth;
 import java.util.Scanner;
+
+
 /**
- *
  * @author precognox
  */
+
 public class TimeLoggerUI {
 
 public void listMonths()
 {
     TimeLogger TimeLogger = new TimeLogger();
-            if(TimeLogger.getMonths() == null)
+    WorkMonth WM;
+            if(TimeLogger.getMonths().isEmpty())
             {
                 System.out.println("No months available");
             }
@@ -20,15 +22,14 @@ public void listMonths()
             {
                 for(int i=0;i<TimeLogger.getMonths().size();i++)
                 {
-                    System.out.println(i);
-                    System.out.println(TimeLogger.months.get(i));
+                    System.out.print(i + " " + TimeLogger.months.get(i));
                 }   
             }
 }
     
 public void createDay(int month, int day, long workh)
 {
-    WorkMonth workM = new WorkMonth();
+    WorkMonth workM = new WorkMonth(YearMonth.now().getYear(),month);
     WorkDay wd = new WorkDay();
     TimeLogger tl = new TimeLogger();
     wd.requiredMinPerDay = workh;
@@ -38,7 +39,7 @@ public void createDay(int month, int day, long workh)
 
 public void listDays(int Month)
 {
-        WorkMonth WorkMonth = new WorkMonth();
+        WorkMonth WorkMonth = new WorkMonth(YearMonth.now().getYear(),Month);
         TimeLogger tl = new TimeLogger();
             if(WorkMonth.getDays() == null)
             {
@@ -53,11 +54,24 @@ public void listDays(int Month)
             }
 }
 
+public void addMonth(int y, int m, TimeLogger tl)
+{
+        WorkMonth WM = new WorkMonth(y,m);
+        if (WM.date != null)
+        {
+            if(y != 0 && m != 0)
+            {
+                WM.date.year = y;
+                WM.date.month = m;
+                tl.addMonth(WM, tl);
+            }
+        }
+}
 
 public void listTask(int month, int day)
-{
+{/*
             WorkDay WorkDay = new WorkDay();
-            if(WorkDay.tasks == null)
+            if(WorkDay.tasks<Task> == null)
             {
                 System.out.println("No tasks available");
             }
@@ -67,10 +81,10 @@ public void listTask(int month, int day)
                 {
                 if(WorkDay.actualDay.getDayOfMonth() == day && WorkDay.actualDay.getMonthValue() == month) System.out.println(WorkDay.tasks.get(i));
                 }   
-            }   
+           }   */
 }
 
-public void menuSelect()
+public void menuSelect(tlog16java.TimeLogger tl)
 {
     System.out.println("Please select an option");
     Scanner user_input = new Scanner(System.in);
@@ -96,7 +110,7 @@ public void menuSelect()
         }
         case 3:
         {
-            System.out.println("Please give me the month then the day");
+            System.out.println("Please give me the month and the day");
             int month = user_input.nextInt();
             int day = user_input.nextInt();
             listTask(month, day);           
@@ -104,7 +118,11 @@ public void menuSelect()
         }
         case 4:
         {
-
+            System.out.println("Please tell me the year and the month(with numbers) you want to add:");
+            int year ,month;
+            year = user_input.nextInt();
+            month = user_input.nextInt();
+            addMonth(year, month, tl);
             break;
         }
         case 5:
@@ -116,33 +134,45 @@ public void menuSelect()
             System.out.println("Please tell me the required working hours in minutes");
             long workh = user_input.nextLong();
             createDay(month, day, workh);
-            menu();break;
+            break;
         }
         case 6:
         {
-            menu();break;
+            int m,d;
+            String taskid, comment;
+            System.out.println("Please tell me the month");
+            m = user_input.nextInt();
+             System.out.println("Please tell me the day");           
+            d = user_input.nextInt();
+            System.out.println("Please give me the Task ID");
+            taskid = user_input.next();
+            System.out.println("Please tell me what you do");
+            comment = user_input.next();
+            System.out.println("Please tell me when you start (HH:MM)");
+            break;
         }
         case 7:
         {
-            menu();break;
+            
+            break;
         }
         case 8:
         {
-            menu();break;
+            break;
         }
         case 9:
         {
-            menu();break;
+            break;
         }
         case 10:
         {
-            menu();break;
+            break;
         }
         
     }
 }    
     
-public void menu()
+    public void menu(tlog16java.TimeLogger tl)
 {
     System.out.println("0. Exit");
     System.out.println("1. List months");
@@ -155,6 +185,6 @@ public void menu()
     System.out.println("8. Delete a task");
     System.out.println("9. Modify task");
     System.out.println("10. Statistics");
-    menuSelect();
+    menuSelect(tl);
 }
 }
