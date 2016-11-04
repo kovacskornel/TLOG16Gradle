@@ -16,8 +16,7 @@ public class TimeLogger{
     }
     
 
-    public boolean isNewMonth(WorkMonth wm) {
-        TimeLogger tl = new TimeLogger();
+    public boolean isNewMonth(WorkMonth wm, TimeLogger tl) {
         boolean isnew = true;
         int i;
         for (i = 0; i < tl.getMonths().size(); i++) {
@@ -29,11 +28,11 @@ public class TimeLogger{
         return isnew;
     }
     
-    public void addMonth(WorkMonth wm) {
-        if (isNewMonth(wm)) {
+    public void addMonth(WorkMonth wm, TimeLogger tl) {
+        if (isNewMonth(wm, tl)) {
             if (getMonths().add(wm)) {
                 System.out.println("Successfully added a WorkMonth");
-            } else {
+            } else {   
                 System.out.println("Error");
             }
         } else {

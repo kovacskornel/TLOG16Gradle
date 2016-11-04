@@ -27,20 +27,18 @@ public void listMonths()
             }
 }
     
-public void createDay(int month, int day, long workh)
+public void createDay(int month, int day, long workh, TimeLogger tl)
 {
-    WorkMonth workM = new WorkMonth(YearMonth.now().getYear(),month);
+    WorkMonth workM = new WorkMonth();
     WorkDay wd = new WorkDay();
-    TimeLogger tl = new TimeLogger();
     wd.requiredMinPerDay = workh;
     wd.setActualDay(LocalDate.of(YearMonth.now().getYear(), month, day));
     workM.addWorkDay(wd, false);
 }
 
-public void listDays(int Month)
+public void listDays(int Month, TimeLogger tl)
 {
-        WorkMonth WorkMonth = new WorkMonth(YearMonth.now().getYear(),Month);
-        TimeLogger tl = new TimeLogger();
+        WorkMonth WorkMonth = new WorkMonth();
             if(WorkMonth.getDays() == null)
             {
                 System.out.println("No days available");
@@ -54,15 +52,12 @@ public void listDays(int Month)
             }
 }
 
-public void addMonth(int y, int m)
+public void addMonth(int y, int m,TimeLogger tl)
 {
-        TimeLogger tl = new TimeLogger();
-        WorkMonth WM = new WorkMonth(y,m);
-        if (WM.date != null)
-        {
-                tl.addMonth(WM);
-
-        }
+                WorkMonth WM = new WorkMonth();
+                WM.date.year = y;
+                WM.date.month = m;
+                tl.addMonth(WM, tl);
 }
 
 public void listTask(int month, int day)
@@ -96,7 +91,7 @@ public void delTask(int m, int d, String tid)
     
 }
 
-public void menuSelect()
+public void menuSelect(TimeLogger tl)
 {
     System.out.println("Please select an option");
     Scanner user_input = new Scanner(System.in);
@@ -117,7 +112,7 @@ public void menuSelect()
         {
             System.out.println("Please select a month (row number) ");
             int selected = user_input.nextInt();
-            listDays(selected);
+            listDays(selected, tl);
             break;
         }
         case 3:
@@ -134,7 +129,7 @@ public void menuSelect()
             int year ,month;
             year = user_input.nextInt();
             month = user_input.nextInt();
-            addMonth(year, month);
+            addMonth(year, month, tl);
             break;
         }
         case 5:
@@ -145,7 +140,7 @@ public void menuSelect()
             int day = user_input.nextInt();
             System.out.println("Please tell me the required working hours in minutes");
             long workh = user_input.nextLong();
-            createDay(month, day, workh);
+            createDay(month, day, workh, tl);
             break;
         }
         case 6:
@@ -198,7 +193,7 @@ public void menuSelect()
                         cont = true;
                         break;
                     case "no":
-                        menu();
+                        menu(tl);
                         cont=true;
                         break;
                     default:
@@ -250,7 +245,7 @@ public void menuSelect()
     }
 }    
     
-    public void menu()
+    public void menu(TimeLogger tl)
 {
     System.out.println("0. Exit");
     System.out.println("1. List months");
@@ -263,6 +258,6 @@ public void menuSelect()
     System.out.println("8. Delete a task");
     System.out.println("9. Modify task");
     System.out.println("10. Statistics");
-    menuSelect();
+    menuSelect(tl);
 }
 }
