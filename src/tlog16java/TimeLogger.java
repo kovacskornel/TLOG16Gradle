@@ -33,7 +33,7 @@ public class TimeLogger{
             if (getMonths().add(wm)) {
                 System.out.println("Successfully added a WorkMonth");
             } else {   
-                System.out.println("Error");
+                System.out.println("Not added!");
             }
         } else {
             System.out.println("This month is already existing!");

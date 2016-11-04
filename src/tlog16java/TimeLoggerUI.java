@@ -30,23 +30,21 @@ public void listMonths(TimeLogger tl)
 public void createDay(int month, int day, long workh, TimeLogger tl)
 {
     WorkMonth WM = tl.getMonths().get(month-1);
-    WorkDay wd = new WorkDay();
-    wd.requiredMinPerDay = workh;
-    wd.setActualDay(LocalDate.of(WM.date.getYear(), WM.date.getMonth(), day));
+    WorkDay wd = new WorkDay(LocalDate.of(WM.date.getYear(), WM.date.getMonth(), day), workh);
     WM.addWorkDay(wd, true);
 }
 
 public void listDays(int Month, TimeLogger tl)
 {
         WorkMonth WM = tl.getMonths().get(Month-1);
-            if(WM.getDays() == null)
+            if(WM.getDays().isEmpty())
             {
                 System.out.println("No days available");
             }
             else
             {
                 System.out.println("Workdays of the selected month:");
-                for(int i=0;i<WM.days.size();i++)
+                for(int i=0;i<WM.getDays().size();i++)
                 {                        
                             System.out.println(WM.getDays().get(i).getActualDay().getDayOfMonth());
                 }   
@@ -62,7 +60,7 @@ public void addMonth(int y, int m,TimeLogger tl)
 
 public void listTask(int month, int day)
 {
-            WorkDay WorkDay = new WorkDay();
+/*          WorkDay WorkDay = new WorkDay();
             if(WorkDay.tasks.isEmpty())
             {
                 System.out.println("No tasks available");
@@ -73,7 +71,7 @@ public void listTask(int month, int day)
                 {
                 if(WorkDay.actualDay.getDayOfMonth() == day && WorkDay.actualDay.getMonthValue() == month) System.out.println(WorkDay.tasks.get(i));
                 }   
-           }   
+           } */  
 }
 
 public void finishTask(int m, int d, String end)
@@ -145,7 +143,7 @@ public void menuSelect(TimeLogger tl)
             int month = user_input.nextInt();
             System.out.println("Please give me the day you want to add");
             int day = user_input.nextInt();
-            System.out.println("Please tell me the required working hours in minutes");
+            System.out.println("Please tell me the required working hours in minutes (type 0 for default value)");
             long workh = user_input.nextLong();
             if(workh == 0) workh = 450;
             createDay(month, day, workh, tl);

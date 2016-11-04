@@ -14,7 +14,7 @@ public class WorkDay{
     
     public List<Task> tasks = new ArrayList<>();
     public long requiredMinPerDay=450;
-    public LocalDate actualDay;
+    LocalDate actualDay;
     public long sumPerDay;
     
     public LocalDate getActualDay()
@@ -42,9 +42,9 @@ public class WorkDay{
         if(required != 0) requiredMinPerDay = required;
     }
     
-    public LocalDate setActualDay(LocalDate date)
+    private void setActualDay(LocalDate date)
     {
-        return date;
+        actualDay = date;
     }
     
     public long getSum()
@@ -77,4 +77,9 @@ public class WorkDay{
         return !((x == DayOfWeek.SATURDAY) || (x == DayOfWeek.SUNDAY));
     }
     
+    public WorkDay(LocalDate date, long reqmin)
+    {
+       setActualDay(date);
+       requiredMinPerDay = reqmin; 
+    }
 }
