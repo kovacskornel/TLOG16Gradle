@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class WorkMonth {
     
-    class thisYearMonth
+    public class thisYearMonth
     {
         int year = YearMonth.now().getYear();
         int month = YearMonth.now().getMonthValue();
@@ -25,13 +25,14 @@ public class WorkMonth {
 
     
     List<WorkDay> days = new ArrayList<>();
-    thisYearMonth date;
+    thisYearMonth dateint;
+    YearMonth date;
     long sumPerMonth;
     long requiredMinPerMonth;
  
     public boolean isSameMonth(WorkDay wd)
     {
-        return (wd.actualDay.getMonthValue()) == date.month;
+        return (wd.actualDay.getMonthValue()) == dateint.month;
     }
     
     public boolean IsNewDate(WorkDay x)
@@ -67,7 +68,7 @@ public class WorkMonth {
     
     public thisYearMonth getYearMonth()
     {
-        return date;
+        return dateint;
     }
     
     public long getSumPerMonth()

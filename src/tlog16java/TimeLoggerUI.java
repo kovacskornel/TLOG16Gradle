@@ -10,19 +10,18 @@ import java.util.Scanner;
 
 public class TimeLoggerUI {
 
-public void listMonths()
+public void listMonths(TimeLogger tl)
 {
-    TimeLogger TimeLogger = new TimeLogger();
-    WorkMonth WM;
-            if(TimeLogger.getMonths().isEmpty())
+    WorkMonth WM = new WorkMonth();
+            if(tl.getMonths().isEmpty())
             {
                 System.out.println("No months available");
             }
             else
             {
-                for(int i=0;i<TimeLogger.getMonths().size();i++)
+                for(int i=0;i<tl.getMonths().size();i++)
                 {
-                    System.out.print(i + " " + TimeLogger.months.get(i));
+                    System.out.println((i+1) + "\t" + tl.months.get(i).date);
                 }   
             }
 }
@@ -55,9 +54,9 @@ public void listDays(int Month, TimeLogger tl)
 public void addMonth(int y, int m,TimeLogger tl)
 {
                 WorkMonth WM = new WorkMonth();
-                WM.date.year = y;
-                WM.date.month = m;
+                WM.date = YearMonth.of(y, m);
                 tl.addMonth(WM, tl);
+                menu(tl);
 }
 
 public void listTask(int month, int day)
@@ -105,7 +104,7 @@ public void menuSelect(TimeLogger tl)
         }
         case 1:
         {
-            listMonths();
+            listMonths(tl);
             break;
         }
         case 2:
@@ -134,7 +133,7 @@ public void menuSelect(TimeLogger tl)
         }
         case 5:
         {
-            listMonths();
+            listMonths(tl);
             System.out.println("Please give me the month then the day");
             int month = user_input.nextInt();
             int day = user_input.nextInt();
