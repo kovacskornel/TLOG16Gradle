@@ -12,10 +12,10 @@ import java.util.ArrayList;
  */
 public class WorkDay{
     
-    public List<Task> tasks = new ArrayList<>();
-    public long requiredMinPerDay=450;
-    LocalDate actualDay;
-    public long sumPerDay;
+    private final List<Task> tasks = new ArrayList<>();
+    private long requiredMinPerDay=450;
+    private LocalDate actualDay;
+    private long sumPerDay;
     
     public LocalDate getActualDay()
     {
@@ -47,15 +47,28 @@ public class WorkDay{
         actualDay = date;
     }
     
-    public long getSum()
-    {
+    public long getRequiredMinPerDay() {
+        return requiredMinPerDay;
+    }
+
+    public void setRequiredMinPerDay(long requiredMinPerDay) {
+        this.requiredMinPerDay = requiredMinPerDay;
+    }
+
+    public long getSumPerDay() {
         return sumPerDay;
     }
+
+    public void setSumPerDay(long sumPerDay) {
+        this.sumPerDay = sumPerDay;
+    }
+    
+    
     
     public long getMinPerTask(Task t)
     {
-        long x ;
-        x = 60*t.endTime.endHour+t.endTime.endMin-(60*t.startTime.startHour+t.startTime.startMin);
+        long x;
+        x = (t.getEndTime().getHour()*60+t.getEndTime().getMinute())-(t.getStartTime().getHour()*60+t.getStartTime().getMinute());
         return x; 
     }
     

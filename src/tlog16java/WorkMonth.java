@@ -9,30 +9,15 @@ import java.util.ArrayList;
  * @author precognox
  */
 public class WorkMonth {
-    
-    public class thisYearMonth
-    {
-        int year = YearMonth.now().getYear();
-        int month = YearMonth.now().getMonthValue();
-     
-        public void setDate(int y, int m)
-        {
-            year = y;
-            month = m;
-        }
-    }
-    
-
-    
-    public List<WorkDay> days = new ArrayList<>();
-    public thisYearMonth dateint;
-    public YearMonth date;
-    public long sumPerMonth;
-    public long requiredMinPerMonth;
+        
+    private List<WorkDay> days = new ArrayList<>();
+    YearMonth date;
+    private long sumPerMonth;
+    private long requiredMinPerMonth;
  
     public boolean isSameMonth(WorkDay wd)
     {
-        return (wd.actualDay.getMonthValue()) == dateint.month;
+        return (wd.getActualDay().getMonth() == date.getMonth());
     }
     
     public boolean IsNewDate(WorkDay x)
@@ -56,31 +41,45 @@ public class WorkMonth {
         {
             if(wd.isWeekDay())
             {
-                h+=wd.getExtraMinPerDay(wd.requiredMinPerDay,wd.sumPerDay);
+                h+=wd.getExtraMinPerDay(wd.getRequired(),wd.getSumPerDay());
             }
         }
     return h;
     }
-    
-    public List<WorkDay> getDays()
-    {
+
+    public List<WorkDay> getDays() {
         return days;
     }
-    
-    public thisYearMonth getYearMonth()
-    {
-        return dateint;
+
+    public void setDays(List<WorkDay> days) {
+        this.days = days;
     }
-    
-    public long getSumPerMonth()
-    {
+
+    public YearMonth getDate() {
+        return date;
+    }
+
+    public void setDate(YearMonth date) {
+        this.date = date;
+    }
+
+    public long getSumPerMonth() {
         return sumPerMonth;
     }
-    
-    public long getReqMinPerMonth()
-    {
+
+    public void setSumPerMonth(long sumPerMonth) {
+        this.sumPerMonth = sumPerMonth;
+    }
+
+    public long getRequiredMinPerMonth() {
         return requiredMinPerMonth;
     }
+
+    public void setRequiredMinPerMonth(long requiredMinPerMonth) {
+        this.requiredMinPerMonth = requiredMinPerMonth;
+    }
+    
+
     
 }
 

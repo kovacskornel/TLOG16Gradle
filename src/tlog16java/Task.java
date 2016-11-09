@@ -6,7 +6,8 @@ import java.time.LocalTime;
  *
  * @author precognox
  */
-public final class Task{
+
+public class Task{
     
     public boolean isValidRedmineTaskId(String ID)
     {
@@ -18,17 +19,8 @@ public final class Task{
         String[] half = ID.split("-");
         return "LT-".equals(half[0]) && half[1].matches("[0-9]+") && half[1].length() == 4;
     }    
-    
-    public class StartTime{
-          int startHour;
-          int startMin;
-    }
-    public class EndTime{
-          int endHour;
-          int endMin;
-    }
  
-    public LocalTime stringToLocalTime(String a){
+    private LocalTime stringToLocalTime(String a){
     int h, m;
     String[] parts = a.split(":");
     h = Integer.parseInt(parts[0]);
@@ -37,72 +29,67 @@ public final class Task{
     return x;
     }
     
-    String taskId;
-    StartTime startTime;
-    EndTime endTime;
-    String comment;
-    
-    public String getTaskId()
-    {
-        return taskId;        
+    private String taskId;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private String comment;
+
+    public Task(LocalTime startTime, LocalTime endTime) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    public Task(String taskId, LocalTime startTime, String comment) {
+        this.taskId = taskId;
+        this.startTime = startTime;
+        this.comment = comment;
     }
     
-    public void setTaskId(String taskId)
-    {
-        if(taskId != null && taskId.length() > 0) this.taskId = taskId;
+     public Task(String taskId, String sstring, String comment) {
+        this.taskId = taskId;
+        this.comment = comment;
+        this.startTime = stringToLocalTime(sstring);
+    }   
+
+    public String getTaskId() {
+        return taskId;
     }
-    
-    public StartTime getStartTime()
-    {
+
+    public LocalTime getStartTime() {
         return startTime;
     }
-    
-    public void setStartTime(int h, int m)
-    {
-        if(m > 0 || h > 0)
-        {
-            startTime.startHour = h;
-            startTime.startMin = m;
-        }
-    }
-    
-    public void setStartTime(LocalTime time)
-    {        
-            startTime.startHour = time.getHour();
-            startTime.startMin = time.getMinute();
-    }
-    
-    public EndTime getEndTime()
-    {
+
+    public LocalTime getEndTime() {
         return endTime;
     }
-    
-    public void setEndTime(int h, int m)
-    {
-        if(m > 0 || h > 0)
-        {
-            endTime.endHour = h;
-            endTime.endMin = m;
-        }
-    }
-    public void setEndTime(LocalTime time)
-    {        
-            endTime.endHour = time.getHour();
-            endTime.endMin = time.getMinute();
-    }    
-    public String getComment()
-    {
+
+    public String getComment() {
         return comment;
     }
-    
-    public void setComment(String comment)
-    {
-        if(comment != null && comment.length() > 0) this.comment = comment;
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
     
+    
+
+
     public boolean isMultipleQuarterHour(long min)
     {
         return min%15==0;
     } 
     
 }
+5

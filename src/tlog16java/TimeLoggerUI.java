@@ -1,6 +1,5 @@
 package tlog16java;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.Scanner;
 
@@ -13,7 +12,6 @@ public class TimeLoggerUI {
 
 public void listMonths(TimeLogger tl)
 {
-    WorkMonth WM = new WorkMonth();
             if(tl.getMonths().isEmpty())
             {
                 System.out.println("No months available");
@@ -22,7 +20,7 @@ public void listMonths(TimeLogger tl)
             {
                 for(int i=0;i<tl.getMonths().size();i++)
                 {
-                    System.out.println((i+1) + "\t" + tl.months.get(i).date);
+                    System.out.println((i+1) + "\t" + tl.getMonths().get(i).getDate());
                 }   
             }
 }
@@ -30,7 +28,7 @@ public void listMonths(TimeLogger tl)
 public void createDay(int month, int day, long workh, TimeLogger tl)
 {
     WorkMonth WM = tl.getMonths().get(month-1);
-    WorkDay wd = new WorkDay(LocalDate.of(WM.date.getYear(), WM.date.getMonth(), day), workh);
+    WorkDay wd = new WorkDay(LocalDate.of(WM.getDate().getYear(), WM.getDate().getMonth(), day), workh);
     WM.addWorkDay(wd, true);
 }
 
@@ -54,7 +52,7 @@ public void listDays(int Month, TimeLogger tl)
 public void addMonth(int y, int m,TimeLogger tl)
 {
                 WorkMonth WM = new WorkMonth();
-                WM.date = YearMonth.of(y, m);
+                WM.setDate(YearMonth.of(y, m));
                 tl.addMonth(WM, tl);
 }
 
@@ -82,12 +80,8 @@ public void finishTask(int m, int d, String end)
 public void startTask(int m, int d, String taskid,String sTime, String comment, TimeLogger tl)
 {
     WorkMonth WM = tl.getMonths().get(m-1);
-    Task task = new Task();
-    task.comment = comment;
-    LocalTime time = task.stringToLocalTime(sTime);
-    task.taskId = taskid;
-    task.startTime.startHour = time.getHour();
-    task.startTime.startMin = time.getMinute();
+    Task task = new Task(taskid,sTime, comment);
+    task.setComment(comment);
     WM.getDays().get(d-1).addTask(task);
 }
 
@@ -219,7 +213,7 @@ public void menuSelect(TimeLogger tl)
             }while(cont != true);
             break;
         }
-        case 9:
+/*        case 9:
         {
             Task task;
             int m,d,sh,sm,eh,em;
@@ -231,7 +225,6 @@ public void menuSelect(TimeLogger tl)
             listTask(m,d);
             System.out.println("Please select a task by task ID");
             String tid = user_input.next();
-            task = new Task();
             System.out.println("Please set the taskID("+tid+")");
             String ntid = user_input.next();
             if(ntid == null ? tid != null : !ntid.equals(tid)) task.taskId= ntid;
@@ -248,8 +241,9 @@ public void menuSelect(TimeLogger tl)
             System.out.println("Please set the comment("+task.comment+")");
             nc = user_input.next();
             if (nc.equals(task.comment)) task.comment = nc;
+            task = new Task();
             break;
-        }
+        }*/
         case 10:
         {
             int m;
@@ -260,8 +254,8 @@ public void menuSelect(TimeLogger tl)
         
     }
 }    
-    
-    public void menu(TimeLogger tl)
+   
+ public void menu(TimeLogger tl)
 {
     System.out.println("0. Exit");
     System.out.println("1. List months");
