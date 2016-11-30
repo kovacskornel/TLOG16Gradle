@@ -85,9 +85,11 @@ public void startTask(int m, int d, String taskid,String sTime, String comment, 
     WM.getDays().get(d-1).addTask(task);
 }
 
-public void delTask(int m, int d, String tid)
+public void delTask(int m, int d, int tind,TimeLogger tl)
 {
-    
+    WorkMonth WM = tl.getMonths().get(m-1);
+    WorkDay WD = WM.getDays().get(d-1);
+    WD.getTasks().remove(tind-1);
 }
 
 public void menuSelect(TimeLogger tl)
@@ -122,7 +124,8 @@ public void menuSelect(TimeLogger tl)
             System.out.println("Please give me the month and the day");
             int month = user_input.nextInt();
             int day = user_input.nextInt();
-            listTask(month, day, tl);           
+            listTask(month, day, tl);
+            menu(tl);
             break;
         }
         case 4:
@@ -193,15 +196,16 @@ public void menuSelect(TimeLogger tl)
              System.out.println("Please tell me the day");           
             d = user_input.nextInt();
             listTask(m,d,tl);
-            System.out.println("Please select a task by task ID");
-            String tid = user_input.next();
+            System.out.println("Please tell me the task's index");
+            int tind = user_input.nextInt();
             do{
-            System.out.println("Are you sure you want to delete \"" + tid + "\" task? (yes/no)");
+            System.out.println("Are you sure you want to delete the " + tind + ". task? (yes/no)");
             conf = user_input.next();
                 switch (conf) {
                     case "yes":
-                        delTask(m,d,tid);
+                        delTask(m,d,tind,tl);
                         cont = true;
+                        menu(tl);
                         break;
                     case "no":
                         menu(tl);

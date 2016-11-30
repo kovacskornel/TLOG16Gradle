@@ -41,6 +41,7 @@ public class Task{
         this.taskId = taskId;
         this.startTime = startTime;
         this.comment = comment;
+        endTime = LocalTime.of(1, 1);
     }
     
      public Task(String taskId, String sstring, String comment) {
