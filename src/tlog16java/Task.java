@@ -14,13 +14,15 @@ public class Task{
         return ID.matches("[0-9]+") && ID.length() == 4;
     }
     
+    
+    
     public boolean isValidLTTaskId(String ID)
     {
         String[] half = ID.split("-");
         return "LT-".equals(half[0]) && half[1].matches("[0-9]+") && half[1].length() == 4;
     }    
  
-    private LocalTime stringToLocalTime(String a){
+    public LocalTime stringToLocalTime(String a){
     int h, m;
     String[] parts = a.split(":");
     h = Integer.parseInt(parts[0]);
@@ -34,10 +36,6 @@ public class Task{
     private LocalTime endTime;
     private String comment;
 
-    public Task(LocalTime startTime, LocalTime endTime) {
-        this.startTime = startTime;
-        this.endTime = endTime;
-    }
 
     public Task(String taskId, LocalTime startTime, String comment) {
         this.taskId = taskId;
@@ -92,4 +90,3 @@ public class Task{
     } 
     
 }
-5

@@ -1,5 +1,6 @@
 package tlog16java;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.YearMonth;
 import java.util.Scanner;
 
@@ -58,18 +59,18 @@ public void addMonth(int y, int m,TimeLogger tl)
 
 public void listTask(int month, int day)
 {
-/*          WorkDay WorkDay = new WorkDay();
-            if(WorkDay.tasks.isEmpty())
+            WorkDay WorkDay = new WorkDay(LocalDate.of(day, Month.MARCH, day));
+            if(WorkDay.getTasks().isEmpty())
             {
                 System.out.println("No tasks available");
             }
             else
             {
-                for(int i=0;i<WorkDay.tasks.size();i++)
+                for(int i=0;i<WorkDay.getTasks().size();i++)
                 {
-                if(WorkDay.actualDay.getDayOfMonth() == day && WorkDay.actualDay.getMonthValue() == month) System.out.println(WorkDay.tasks.get(i));
+                if(WorkDay.getActualDay().getDayOfMonth() == day && WorkDay.getActualDay().getMonthValue() == month) System.out.println(WorkDay.getTasks().get(i));
                 }   
-           } */  
+           }   
 }
 
 public void finishTask(int m, int d, String end)
@@ -80,8 +81,7 @@ public void finishTask(int m, int d, String end)
 public void startTask(int m, int d, String taskid,String sTime, String comment, TimeLogger tl)
 {
     WorkMonth WM = tl.getMonths().get(m-1);
-    Task task = new Task(taskid,sTime, comment);
-    task.setComment(comment);
+    Task task = new Task(taskid, sTime, comment);
     WM.getDays().get(d-1).addTask(task);
 }
 

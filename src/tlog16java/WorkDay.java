@@ -67,18 +67,12 @@ public class WorkDay{
     
     public long getMinPerTask(Task t)
     {
-        long x;
-        x = (t.getEndTime().getHour()*60+t.getEndTime().getMinute())-(t.getStartTime().getHour()*60+t.getStartTime().getMinute());
-        return x; 
+        return (t.getEndTime().getHour()*60+t.getEndTime().getMinute())-(t.getStartTime().getHour()*60+t.getStartTime().getMinute());
     }
     
     public void addTask(Task t)
     {
-        if(t.isMultipleQuarterHour(getMinPerTask(t)))
-        {
-            System.out.println("Invalid length");
-        }
-        else tasks.add(t);
+        tasks.add(t);
     }
     
     public boolean isWeekDay()
@@ -95,4 +89,11 @@ public class WorkDay{
        setActualDay(date);
        requiredMinPerDay = reqmin; 
     }
+
+    public WorkDay(LocalDate actualDay) {
+        this.actualDay = actualDay;
+    }
+    
+    
+    
 }
