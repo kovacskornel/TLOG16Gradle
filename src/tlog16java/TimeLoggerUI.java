@@ -1,6 +1,5 @@
 package tlog16java;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.YearMonth;
 import java.util.Scanner;
 
@@ -57,18 +56,19 @@ public void addMonth(int y, int m,TimeLogger tl)
                 tl.addMonth(WM, tl);
 }
 
-public void listTask(int month, int day)
+public void listTask(int month, int day,TimeLogger tl)
 {
-            WorkDay WorkDay = new WorkDay(LocalDate.of(day, Month.MARCH, day));
-            if(WorkDay.getTasks().isEmpty())
+            WorkMonth WM = tl.getMonths().get(month-1);
+            WorkDay WD = WM.getDays().get(day-1);
+            if(WD.getTasks().isEmpty())
             {
                 System.out.println("No tasks available");
             }
             else
             {
-                for(int i=0;i<WorkDay.getTasks().size();i++)
+                for(int i=0;i<WD.getTasks().size();i++)
                 {
-                if(WorkDay.getActualDay().getDayOfMonth() == day && WorkDay.getActualDay().getMonthValue() == month) System.out.println(WorkDay.getTasks().get(i));
+                    System.out.println(WD.getTasks().get(i).getTaskId());
                 }   
            }   
 }
@@ -122,7 +122,7 @@ public void menuSelect(TimeLogger tl)
             System.out.println("Please give me the month and the day");
             int month = user_input.nextInt();
             int day = user_input.nextInt();
-            listTask(month, day);           
+            listTask(month, day, tl);           
             break;
         }
         case 4:
@@ -167,6 +167,7 @@ public void menuSelect(TimeLogger tl)
             System.out.println("Please tell me when you start (HH:MM)");
             sTime = user_input.next();
             startTask(m,d,taskid,sTime,comment, tl);
+            menu(tl);
             break;
         }
         case 7:
@@ -176,7 +177,7 @@ public void menuSelect(TimeLogger tl)
             m = user_input.nextInt();
              System.out.println("Please tell me the day");           
             d = user_input.nextInt();
-            listTask(m,d);
+            listTask(m,d,tl);
             System.out.println("Please tell me the end time (HH:MM)");
             String end = user_input.next();
             finishTask(m,d,end);
@@ -191,7 +192,7 @@ public void menuSelect(TimeLogger tl)
             m = user_input.nextInt();
              System.out.println("Please tell me the day");           
             d = user_input.nextInt();
-            listTask(m,d);
+            listTask(m,d,tl);
             System.out.println("Please select a task by task ID");
             String tid = user_input.next();
             do{
