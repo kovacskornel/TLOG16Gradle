@@ -34,15 +34,14 @@ public class WorkMonth {
         }
     }
     
-    public long getExtraMinPerMonth(WorkDay wd)
+    public long getExtraMinPerMonth()
     {
+        int i;
         long h=0;
-        for(int i=1; i<YearMonth.now().lengthOfMonth();i++)
+        WorkDay wd;
+        for(i=0;i<days.size();i++)
         {
-            if(wd.isWeekDay())
-            {
-                h+=wd.getExtraMinPerDay(wd.getRequired(),wd.getSumPerDay());
-            }
+            h += days.get(i).getExtraMinPerDay();
         }
     return h;
     }

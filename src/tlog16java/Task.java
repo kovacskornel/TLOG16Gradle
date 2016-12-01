@@ -19,12 +19,9 @@ public class Task{
         return ID.matches("LT-\\d{4}");
     }    
  
-    public LocalTime stringToLocalTime(String a){
-    int h, m;
+    private LocalTime stringToLocalTime(String a){
     String[] parts = a.split(":");
-    h = Integer.parseInt(parts[0]);
-    m = Integer.parseInt(parts[1]);
-    LocalTime x = LocalTime.of(h, m);
+    LocalTime x = LocalTime.of(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
     return x;
     }
     

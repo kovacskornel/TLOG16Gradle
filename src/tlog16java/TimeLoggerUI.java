@@ -289,6 +289,8 @@ private void menuSelect(TimeLogger tl)
             int m;
             System.out.println("Please tell me the month");
             m = user_input.nextInt();
+            WorkMonth WM = tl.getMonths().get(m-1);
+            
             break;
         }
         

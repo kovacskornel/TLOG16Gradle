@@ -22,9 +22,9 @@ public class WorkDay{
         return actualDay;
     }
     
-    public long getExtraMinPerDay(long sum,long req)
+    public long getExtraMinPerDay()
     {
-        return (sum - req);
+        return (sumPerDay-requiredMinPerDay);
     }
     
     public List<Task> getTasks()
