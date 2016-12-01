@@ -73,9 +73,32 @@ private void listTask(int month, int day,TimeLogger tl)
            }   
 }
 
-private void finishTask(int m, int d, String end)
+private void listUnfinishedTask(int month, int day,TimeLogger tl)
 {
-    
+            WorkMonth WM = tl.getMonths().get(month-1);
+            WorkDay WD = WM.getDays().get(day-1);
+            boolean x = false;
+            if(WD.getTasks().isEmpty())
+            {
+                System.out.println("No tasks available");
+            }
+            else
+            {
+                for(int i=0;i<WD.getTasks().size();i++)
+                {
+                    if(WD.getTasks().get(i).getEndTime() == null)
+                    {
+                    System.out.println((i+1) + "\t" + WD.getTasks().get(i).getTaskId());
+                    x = true;
+                    }
+                }
+                if (x == false) System.out.println("No unfinished tasks available");
+           }   
+}
+
+private void finishTask(Task t)
+{
+
 }
 
 private void startTask(int m, int d, String taskid,String sTime, String comment, TimeLogger tl)
@@ -189,10 +212,13 @@ private void menuSelect(TimeLogger tl)
             m = user_input.nextInt();
              System.out.println("Please tell me the day");           
             d = user_input.nextInt();
-            listTask(m,d,tl);
+            listUnfinishedTask(m,d,tl);
+            System.out.println("Please tell me what task you ended (row number)");
+            int ta = user_input.nextInt();
             System.out.println("Please tell me the end time (HH:MM)");
             String end = user_input.next();
-            finishTask(m,d,end);
+            tl.getMonths().get(m-1).getDays().get(d-1).getTasks().get(ta-1).setEndTime(end);
+            menu(tl);
             break;
         }
         case 8:
