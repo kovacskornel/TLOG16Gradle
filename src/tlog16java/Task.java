@@ -47,6 +47,17 @@ public class Task{
         this.startTime = stringToLocalTime(sstring);
     }   
 
+    public Task(String taskId, LocalTime startTime, LocalTime endTime, String comment) {
+        this.taskId = taskId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.comment = comment;
+    }
+
+    public Task(String taskId) {
+        this.taskId = taskId;
+    }
+     
     public String getTaskId() {
         return taskId;
     }
@@ -74,13 +85,18 @@ public class Task{
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
+    
+    public void setStartTime(String startTime) {
+        this.startTime = stringToLocalTime(startTime);
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = stringToLocalTime(endTime);
+    }
 
     public void setComment(String comment) {
         this.comment = comment;
     }
-    
-    
-
 
     public boolean isMultipleQuarterHour(long min)
     {

@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class TimeLoggerUI {
 
-public void listMonths(TimeLogger tl)
+private void listMonths(TimeLogger tl)
 {
             if(tl.getMonths().isEmpty())
             {
@@ -25,14 +25,14 @@ public void listMonths(TimeLogger tl)
             }
 }
     
-public void createDay(int month, int day, long workh, TimeLogger tl)
+private void createDay(int month, int day, long workh, TimeLogger tl)
 {
     WorkMonth WM = tl.getMonths().get(month-1);
     WorkDay wd = new WorkDay(LocalDate.of(WM.getDate().getYear(), WM.getDate().getMonth(), day), workh);
     WM.addWorkDay(wd, true);
 }
 
-public void listDays(int Month, TimeLogger tl)
+private void listDays(int Month, TimeLogger tl)
 {
         WorkMonth WM = tl.getMonths().get(Month-1);
             if(WM.getDays().isEmpty())
@@ -49,14 +49,14 @@ public void listDays(int Month, TimeLogger tl)
             }
 }
 
-public void addMonth(int y, int m,TimeLogger tl)
+private void addMonth(int y, int m,TimeLogger tl)
 {
                 WorkMonth WM = new WorkMonth();
                 WM.setDate(YearMonth.of(y, m));
                 tl.addMonth(WM, tl);
 }
 
-public void listTask(int month, int day,TimeLogger tl)
+private void listTask(int month, int day,TimeLogger tl)
 {
             WorkMonth WM = tl.getMonths().get(month-1);
             WorkDay WD = WM.getDays().get(day-1);
@@ -68,17 +68,17 @@ public void listTask(int month, int day,TimeLogger tl)
             {
                 for(int i=0;i<WD.getTasks().size();i++)
                 {
-                    System.out.println(WD.getTasks().get(i).getTaskId());
+                    System.out.println((i+1) + "\t" + WD.getTasks().get(i).getTaskId());
                 }   
            }   
 }
 
-public void finishTask(int m, int d, String end)
+private void finishTask(int m, int d, String end)
 {
     
 }
 
-public void startTask(int m, int d, String taskid,String sTime, String comment, TimeLogger tl)
+private void startTask(int m, int d, String taskid,String sTime, String comment, TimeLogger tl)
 {
     WorkMonth WM = tl.getMonths().get(m-1);
     Task task = new Task(taskid, sTime, comment);
@@ -89,14 +89,14 @@ public void startTask(int m, int d, String taskid,String sTime, String comment, 
     else System.out.println("Task ID not valid");
 }
 
-public void delTask(int m, int d, int tind,TimeLogger tl)
+private void delTask(int m, int d, int tind,TimeLogger tl)
 {
     WorkMonth WM = tl.getMonths().get(m-1);
     WorkDay WD = WM.getDays().get(d-1);
     WD.getTasks().remove(tind-1);
 }
 
-public void menuSelect(TimeLogger tl)
+private void menuSelect(TimeLogger tl)
 {
     System.out.println("Please select an option");
     Scanner user_input = new Scanner(System.in);
@@ -210,7 +210,7 @@ public void menuSelect(TimeLogger tl)
             System.out.println("Please tell me the task's index");
             int tind = user_input.nextInt();
             do{
-            System.out.println("Are you sure you want to delete the " + tind + ". task? (yes/no)");
+            System.out.println("Are you sure you want to delete the " + tl.getMonths().get(m-1).getDays().get(d-1).getTasks().get(tind-1).getTaskId() + " task? (yes/no)");
             conf = user_input.next();
                 switch (conf) {
                     case "yes":
@@ -229,37 +229,35 @@ public void menuSelect(TimeLogger tl)
             }while(cont != true);
             break;
         }
-/*        case 9:
+
+        case 9:
         {
             Task task;
-            int m,d,sh,sm,eh,em;
-            String conf, nc;
+            int m,d;
+            String nc;
             System.out.println("Please tell me the month");
             m = user_input.nextInt();
              System.out.println("Please tell me the day");           
             d = user_input.nextInt();
-            listTask(m,d);
-            System.out.println("Please select a task by task ID");
-            String tid = user_input.next();
-            System.out.println("Please set the taskID("+tid+")");
+            listTask(m,d,tl);
+            System.out.println("Please select a tasks index");
+            int tind = user_input.nextInt();
+            task = tl.getMonths().get(m-1).getDays().get(d-1).getTasks().get(tind-1);
+            System.out.println("Please set the taskID("+task.getTaskId()+")");
             String ntid = user_input.next();
-            if(ntid == null ? tid != null : !ntid.equals(tid)) task.taskId= ntid;
-            System.out.println("Please set the Start Time ("+task.startTime.startHour + ":"+ task.startTime.startMin+")( enter hour than minutes )");
-            sh = user_input.nextInt();
-            if(sh != task.startTime.startHour) task.startTime.startHour = sh;
-            sm = user_input.nextInt();
-            if(sm != task.startTime.startMin) task.startTime.startMin = sm;
-            System.out.println("Please set the End Time ("+task.endTime.endHour+ ":" + task.endTime.endMin +")( enter hour than minutes )");
-            eh = user_input.nextInt();
-            if(sh != task.endTime.endHour) task.endTime.endHour = eh;
-            em = user_input.nextInt();
-            if(sm != task.endTime.endMin) task.endTime.endMin = em;
-            System.out.println("Please set the comment("+task.comment+")");
+            task.setTaskId(ntid);
+            System.out.println("Please set the Start Time ("+task.getStartTime()+")( HH:MM )");
+            String st = user_input.next();
+            task.setStartTime(st);
+            System.out.println("Please set the Finishing Time ("+task.getEndTime()+")( HH:MM )");
+            String et = user_input.next();
+            task.setEndTime(et);
+            System.out.println("Please set the comment("+task.getComment()+")");
             nc = user_input.next();
-            if (nc.equals(task.comment)) task.comment = nc;
-            task = new Task();
+            task.setComment(nc);
             break;
-        }*/
+        }
+
         case 10:
         {
             int m;
@@ -271,7 +269,7 @@ public void menuSelect(TimeLogger tl)
     }
 }    
    
- public void menu(TimeLogger tl)
+public void menu(TimeLogger tl)
 {
     System.out.println("0. Exit");
     System.out.println("1. List months");
