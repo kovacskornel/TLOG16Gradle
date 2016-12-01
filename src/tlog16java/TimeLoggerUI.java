@@ -44,7 +44,7 @@ public void listDays(int Month, TimeLogger tl)
                 System.out.println("Workdays of the selected month:");
                 for(int i=0;i<WM.getDays().size();i++)
                 {                        
-                            System.out.println(WM.getDays().get(i).getActualDay().getDayOfMonth());
+                            System.out.println((i+1) + "\t" + WM.getDate() + "-" + WM.getDays().get(i).getActualDay().getDayOfMonth());
                 }   
             }
 }
@@ -82,7 +82,11 @@ public void startTask(int m, int d, String taskid,String sTime, String comment, 
 {
     WorkMonth WM = tl.getMonths().get(m-1);
     Task task = new Task(taskid, sTime, comment);
-    WM.getDays().get(d-1).addTask(task);
+    if(task.isValidLTTaskId(taskid) || task.isValidRedmineTaskId(taskid))
+    {
+        WM.getDays().get(d-1).addTask(task);
+    }
+    else System.out.println("Task ID not valid");
 }
 
 public void delTask(int m, int d, int tind,TimeLogger tl)
@@ -121,8 +125,11 @@ public void menuSelect(TimeLogger tl)
         }
         case 3:
         {
-            System.out.println("Please give me the month and the day");
+            listMonths(tl);
+            System.out.println("Please give me the month (row number)");
             int month = user_input.nextInt();
+            listDays(month, tl);
+            System.out.println("Please give me the day (row number)");
             int day = user_input.nextInt();
             listTask(month, day, tl);
             menu(tl);
@@ -159,9 +166,11 @@ public void menuSelect(TimeLogger tl)
         {
             int m,d;
             String taskid, comment, sTime;
-            System.out.println("Please tell me the month");
+            listMonths(tl);
+            System.out.println("Please give me the month (row number)");
             m = user_input.nextInt();
-             System.out.println("Please tell me the day");           
+            listDays(m, tl);
+             System.out.println("Please give me the day (row number)");           
             d = user_input.nextInt();
             System.out.println("Please give me the Task ID");
             taskid = user_input.next();
@@ -191,8 +200,10 @@ public void menuSelect(TimeLogger tl)
             int m,d;
             String conf;
             boolean cont = false;
+            listMonths(tl);
             System.out.println("Please tell me the month");
             m = user_input.nextInt();
+            listDays(m, tl);
              System.out.println("Please tell me the day");           
             d = user_input.nextInt();
             listTask(m,d,tl);

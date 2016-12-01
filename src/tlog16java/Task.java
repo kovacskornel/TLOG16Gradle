@@ -11,15 +11,12 @@ public class Task{
     
     public boolean isValidRedmineTaskId(String ID)
     {
-        return ID.matches("[0-9]+") && ID.length() == 4;
+        return ID.matches("\\d{4}");
     }
-    
-    
     
     public boolean isValidLTTaskId(String ID)
     {
-        String[] half = ID.split("-");
-        return "LT-".equals(half[0]) && half[1].matches("[0-9]+") && half[1].length() == 4;
+        return ID.matches("LT-\\d{4}");
     }    
  
     public LocalTime stringToLocalTime(String a){
