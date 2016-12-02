@@ -30,6 +30,16 @@ public class Task{
     private LocalTime endTime;
     private String comment;
 
+    public long getMinPerTask()
+    {
+        long x=0;
+        if(endTime != null)
+        {
+        x += (getEndTime().getHour()*60+getEndTime().getMinute())-(getStartTime().getHour()*60+getStartTime().getMinute());
+        }
+        return x;
+        
+    }
 
     public Task(String taskId, LocalTime startTime, String comment) {
         this.taskId = taskId;

@@ -286,11 +286,22 @@ private void menuSelect(TimeLogger tl)
 
         case 10:
         {
-            int m;
+            int m,i,j;
             System.out.println("Please tell me the month");
             m = user_input.nextInt();
             WorkMonth WM = tl.getMonths().get(m-1);
-            
+            System.out.println("\t\t\t\t\t" + WM.getExtraMinPerMonth());
+            for(i=0;i<WM.getDays().size();i++)
+            {
+            WorkDay WD = WM.getDays().get(i);
+            System.out.println(WD.getActualDay() + "\t" + WD.getSumPerDay() + "\t" + WD.getTasks().get(0).getStartTime() + "\t" + WD.getExtraMinPerDay());
+                for (j=0;j<WD.getTasks().size();j++)
+                {
+                    Task t = WD.getTasks().get(j);
+                    System.out.println(t.getMinPerTask() + "\t" + t.getTaskId() + "\t" + t.getComment() + "\t" + t.getEndTime());
+                }
+               System.out.println();
+            }
             break;
         }
         

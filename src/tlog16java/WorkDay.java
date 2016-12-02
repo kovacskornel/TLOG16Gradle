@@ -24,7 +24,15 @@ public class WorkDay{
     
     public long getExtraMinPerDay()
     {
-        return (sumPerDay-requiredMinPerDay);
+        long x=0;
+        int i;
+        for (i=0;i<tasks.size();i++)
+        {
+            x+=tasks.get(i).getMinPerTask();
+        }
+        sumPerDay = x;
+        x -= requiredMinPerDay;
+        return x;
     }
     
     public List<Task> getTasks()
@@ -64,11 +72,6 @@ public class WorkDay{
     }
     
     
-    
-    public long getMinPerTask(Task t)
-    {
-        return (t.getEndTime().getHour()*60+t.getEndTime().getMinute())-(t.getStartTime().getHour()*60+t.getStartTime().getMinute());
-    }
     
     public void addTask(Task t)
     {
