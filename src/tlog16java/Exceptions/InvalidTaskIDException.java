@@ -12,6 +12,12 @@ package tlog16java.Exceptions;
 public class InvalidTaskIDException extends RuntimeException {
 
     public InvalidTaskIDException() {
-         super("Invalid task ID!");
+        
     }
+
+    public InvalidTaskIDException(String string) {
+        super(string);
+    }
+    
+    
 }

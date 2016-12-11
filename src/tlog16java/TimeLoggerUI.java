@@ -2,6 +2,7 @@ package tlog16java;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Scanner;
+import tlog16java.Exceptions.*;
 
 
 /**
@@ -105,11 +106,7 @@ private void startTask(int m, int d, String taskid,String sTime, String comment,
 {
     WorkMonth WM = tl.getMonths().get(m-1);
     Task task = new Task(taskid, sTime, comment);
-    if(task.isValidLTTaskId(taskid) || task.isValidRedmineTaskId(taskid))
-    {
-        WM.getDays().get(d-1).addTask(task);
-    }
-    else System.out.println("Task ID not valid");
+    WM.getDays().get(d-1).addTask(task);
 }
 
 private void delTask(int m, int d, int tind,TimeLogger tl)

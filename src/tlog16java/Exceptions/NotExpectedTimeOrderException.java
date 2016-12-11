@@ -12,6 +12,9 @@ package tlog16java.Exceptions;
 public class NotExpectedTimeOrderException extends RuntimeException {
 
     public NotExpectedTimeOrderException() {
-        super("Not expected time order!");
     }           
+
+    public NotExpectedTimeOrderException(String string) {
+        super(string);
+    }
 }

@@ -11,7 +11,10 @@ package tlog16java.Exceptions;
  */
 public class EmptyTimeFieldException extends RuntimeException {
 
+    public EmptyTimeFieldException(String string) {
+        super(string);
+    }
+    
     public EmptyTimeFieldException() {
-        super("Empty time field!");
     }           
 }

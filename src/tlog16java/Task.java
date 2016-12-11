@@ -1,6 +1,7 @@
 package tlog16java;
 
 import java.time.LocalTime;
+import tlog16java.Exceptions.EmptyTimeFieldException;
 
 /**
  *
@@ -45,7 +46,6 @@ public class Task{
         this.taskId = taskId;
         this.startTime = startTime;
         this.comment = comment;
-        endTime = LocalTime.of(1, 1);
     }
     
      public Task(String taskId, String sstring, String comment) {
@@ -86,19 +86,26 @@ public class Task{
     }
 
     public void setStartTime(LocalTime startTime) {
+        if(startTime.getHour() !=0 || startTime.getMinute() != 0)
+        {
         this.startTime = startTime;
+        } else throw new EmptyTimeFieldException("Please don't leave a time field empty!");
     }
 
     public void setEndTime(LocalTime endTime) {
+
+        if(endTime.getHour() !=0 || endTime.getMinute() != 0)
+        {
         this.endTime = endTime;
+        } else throw new EmptyTimeFieldException("Please don't leave a time field empty!");
     }
     
     public void setStartTime(String startTime) {
-        this.startTime = stringToLocalTime(startTime);
+        setStartTime(stringToLocalTime(startTime));
     }
 
     public void setEndTime(String endTime) {
-        this.endTime = stringToLocalTime(endTime);
+        setEndTime(stringToLocalTime(endTime));
     }
 
     public void setComment(String comment) {

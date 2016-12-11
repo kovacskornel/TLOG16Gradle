@@ -12,7 +12,9 @@ package tlog16java.Exceptions;
 public class NegativeMinutesOfWorkException extends RuntimeException  {
 
     public NegativeMinutesOfWorkException() {
-        super("Negative minutes of work!");
     }
-    
+
+    public NegativeMinutesOfWorkException(String string) {
+        super(string);
+    }
 }

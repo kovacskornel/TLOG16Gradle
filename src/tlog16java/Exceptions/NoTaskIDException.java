@@ -12,7 +12,11 @@ package tlog16java.Exceptions;
 public class NoTaskIDException extends RuntimeException  {
 
     public NoTaskIDException() {
-        super("No Task ID!");
+    }
+
+    public NoTaskIDException(String string) {
+        super(string);
     }
     
+       
 }
