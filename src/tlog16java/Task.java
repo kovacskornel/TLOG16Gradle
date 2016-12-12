@@ -22,9 +22,14 @@ public  class Task{
     public final boolean isValidLTTaskId(String ID)
     {
         return ID.matches("LT-\\d{4}");
-    }    
+    }
+    
+    public boolean isValidTaskID(String ID)
+    {
+        return isValidRedmineTaskId(ID) || isValidLTTaskId(ID);
+    }
  
-    private LocalTime stringToLocalTime(String a){
+    public final LocalTime stringToLocalTime(String a){
     String[] parts = a.split(":");
     LocalTime x = LocalTime.of(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
     return x;
@@ -75,10 +80,10 @@ public  class Task{
             stime = stringToLocalTime(startTime);
         }
         else throw new EmptyTimeFieldException("Empty time field!");
-        if(stime != null && etime != null && stime.getHour()*60+stime.getMinute() < etime.getHour()*60+etime.getMinute())
+        if(stime.getHour()*60+stime.getMinute() < etime.getHour()*60+etime.getMinute())
         {
-        this.startTime = stime;
-        this.endTime = etime;
+            this.startTime = stime;
+            this.endTime = etime;
         }
         else if(stime == null || etime == null) throw new EmptyTimeFieldException("Empty time field!");
         else if((stime.getHour()*60+stime.getMinute()) > (etime.getHour()*60+etime.getMinute())) throw new NotExpectedTimeOrderException();        
@@ -100,17 +105,25 @@ public  class Task{
         this.endTime = endTime;
         this.comment = comment;
     }
+    
+    public Task(String taskId, String startTime, String endTime, String comment) {
+        this.taskId = taskId;
+        this.startTime = stringToLocalTime(startTime);
+        this.endTime = stringToLocalTime(endTime);
+        this.comment = comment;
+    }
 
     public Task(String taskId) {
-        if(taskId != null && isValidLTTaskId(taskId) || isValidRedmineTaskId(taskId))
+        if(taskId == null || "".equals(taskId) || taskId.isEmpty()) throw new NoTaskIDException();
+        else if(isValidLTTaskId(taskId) || isValidRedmineTaskId(taskId) && !"".equals(taskId))
         {
             this.taskId = taskId;
-        }else if(taskId == null) throw new NoTaskIDException("No task ID!");
-        else if(!isValidRedmineTaskId(taskId) || !isValidRedmineTaskId(taskId)) throw new InvalidTaskIDException("Not valid Task ID!");
+        }else if(!isValidRedmineTaskId(taskId) || !isValidRedmineTaskId(taskId)) throw new InvalidTaskIDException();
     }
      
     public String getTaskId() {
-        return taskId;
+        if(!"".equals(taskId) && taskId != null) return taskId;
+        else throw new NoTaskIDException();
     }
 
     public LocalTime getStartTime() {
@@ -169,7 +182,7 @@ public  class Task{
         this.comment = comment;
     }
 
-    public boolean isMultipleQuarterHour(long min)
+    public final boolean isMultipleQuarterHour(long min)
     {
         return min%15==0;
     } 
