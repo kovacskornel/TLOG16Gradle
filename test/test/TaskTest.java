@@ -14,6 +14,7 @@ import tlog16java.Exceptions.EmptyTimeFieldException;
 import tlog16java.Exceptions.InvalidTaskIDException;
 import tlog16java.Exceptions.NoTaskIDException;
 import tlog16java.Exceptions.NotExpectedTimeOrderException;
+import tlog16java.Exceptions.NotMultipleQuarterHourException;
 
 /**
  *
@@ -159,10 +160,16 @@ public class TaskTest {
     
     // Test 14
     @Test
-    public void testInvalidMultipleQuarter()
+/*    public void testInvalidMultipleQuarter()
     {
         assertEquals(notQuarterHour().isMultipleQuarterHour(notQuarterHour().getStartTime().getMinute()) && notQuarterHour().isMultipleQuarterHour(notQuarterHour().getEndTime().getMinute()) ,false);       
     }    
+*/  (expected = NotMultipleQuarterHourException.class) 
+    public void testInvalidMultipleQuarter()
+    {
+        notQuarterHour().isMultipleQuarterHour(notQuarterHour().getStartTime().getMinute());
+        notQuarterHour().isMultipleQuarterHour(notQuarterHour().getEndTime().getMinute());
+    }
     
     // Test 15
     @Test(expected = NoTaskIDException.class)
