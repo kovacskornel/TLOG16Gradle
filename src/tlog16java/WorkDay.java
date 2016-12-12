@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import tlog16java.Exceptions.NegativeMinutesOfWorkException;
 import tlog16java.Exceptions.FutureWorkException;
 import tlog16java.Exceptions.NoTaskException;
+import tlog16java.Exceptions.NotSeparatedTimesException;
 
 /**
  *
@@ -76,10 +77,10 @@ public class WorkDay{
         this.sumPerDay = sumPerDay;
     }
     
-    
-    
     public void addTask(Task t)
     {
+        if(tasks.isEmpty()) tasks.add(t);
+        if(!isSeparatedTime(t)) throw new NotSeparatedTimesException();
         tasks.add(t);
     }
     
@@ -93,6 +94,7 @@ public class WorkDay{
         setActualDay(date);
        if(reqmin < 0) throw new NegativeMinutesOfWorkException();
        else requiredMinPerDay = reqmin;
+       
     }
 
     public WorkDay(LocalDate date) {
@@ -105,16 +107,15 @@ public class WorkDay{
         return getTasks().get(getTasks().size()-1).getEndTime();
     }
     
-    public boolean isSeparatedTime()
+    public final boolean isSeparatedTime(Task t)
     {       
         int i,j;
         LocalTime a,b,c,d;
         if(getTasks().isEmpty()) throw new NoTaskException();
-        for (i=0;i<getTasks().size()-1;i++)
-        {
-            a = getTasks().get(i).getStartTime();
-            b = getTasks().get(i).getEndTime();
-            for(j=i+1;i<getTasks().size();i++)
+
+            a = t.getStartTime();
+            b = t.getEndTime();
+            for(j=0;j<getTasks().size();j++)
             {
                     boolean after,before;
                     c = getTasks().get(j).getStartTime();
@@ -127,7 +128,7 @@ public class WorkDay{
                         }else return false;
                     }
             }
-        }
+        
         return true;
     }
     

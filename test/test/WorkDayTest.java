@@ -28,7 +28,7 @@ public class WorkDayTest {
     
     private Task NextTask()
     {
-        return new Task("8:45","9:45");
+        return new Task("08:45","09:45");
     }
 
     private Task notQuarterHour()
@@ -59,46 +59,6 @@ public class WorkDayTest {
     private Task SepTask3()
     {
         return new Task("08:30","9:45");
-    }
-    
-    private WorkDay SepDay1()
-    {
-        WorkDay a = new WorkDay(LocalDate.now());
-        a.addTask(SepTask1());
-        a.addTask(SepTask2());
-        return a;
-    }
-    
-    private WorkDay SepDay2()
-    {
-        WorkDay a = new WorkDay(LocalDate.now());
-        a.addTask(SepTask1());
-        a.addTask(SepTask3());
-        return a;
-    }
-    
-    private WorkDay SepDay3()
-    {
-        WorkDay a = new WorkDay(LocalDate.now());
-        a.addTask(SepTask3());
-        a.addTask(SepTask1());
-        return a;
-    }    
-    
-    private WorkDay SepDay4()
-    {
-        WorkDay a = new WorkDay(LocalDate.now());
-        a.addTask(SepTask1());
-        a.addTask(SepTask1());
-        return a;
-    }
-    
-    private WorkDay SepDay5()
-    {
-        WorkDay a = new WorkDay(LocalDate.now());
-        a.addTask(SepTask1());
-        a.addTask(SepTask3());
-        return a;
     }
     
     private WorkDay LastDay()
@@ -293,9 +253,11 @@ public class WorkDayTest {
     @Test
     public void SepTest1()
     {
-        assertEquals(SepDay1().isSeparatedTime(),true);
+        WorkDay a = new WorkDay(LocalDate.now());
+        a.addTask(SepTask1());
+        assertEquals(a.isSeparatedTime(SepTask2()),true);
     }
-   
+/*   
     // Test 18
     @Test
     public void SepTest2()
