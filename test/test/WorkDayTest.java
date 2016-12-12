@@ -5,6 +5,7 @@
  */
 package test;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 import tlog16java.WorkDay;
 import tlog16java.Task;
@@ -12,6 +13,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import tlog16java.Exceptions.NegativeMinutesOfWorkException;
 import tlog16java.Exceptions.FutureWorkException;
+import tlog16java.Exceptions.NotMultipleQuarterHourException;
 
 /**
  *
@@ -37,6 +39,74 @@ public class WorkDayTest {
     private Task MyTask()
     {
         return new Task("08:00","09:00");
+    }
+    
+    private Task LastTask()
+    {
+        return new Task("09:30","11:45");
+    }
+    
+    private Task SepTask1()
+    {
+        return new Task("07:30","08:45");
+    }
+    
+    private Task SepTask2()
+    {
+        return new Task("8:45","9:45");
+    }
+    
+    private Task SepTask3()
+    {
+        return new Task("08:30","9:45");
+    }
+    
+    private WorkDay SepDay1()
+    {
+        WorkDay a = new WorkDay(LocalDate.now());
+        a.addTask(SepTask1());
+        a.addTask(SepTask2());
+        return a;
+    }
+    
+    private WorkDay SepDay2()
+    {
+        WorkDay a = new WorkDay(LocalDate.now());
+        a.addTask(SepTask1());
+        a.addTask(SepTask3());
+        return a;
+    }
+    
+    private WorkDay SepDay3()
+    {
+        WorkDay a = new WorkDay(LocalDate.now());
+        a.addTask(SepTask3());
+        a.addTask(SepTask1());
+        return a;
+    }    
+    
+    private WorkDay SepDay4()
+    {
+        WorkDay a = new WorkDay(LocalDate.now());
+        a.addTask(SepTask1());
+        a.addTask(SepTask1());
+        return a;
+    }
+    
+    private WorkDay SepDay5()
+    {
+        WorkDay a = new WorkDay(LocalDate.now());
+        a.addTask(SepTask1());
+        a.addTask(SepTask3());
+        return a;
+    }
+    
+    private WorkDay LastDay()
+    {
+        WorkDay a = new WorkDay(LocalDate.now());
+        a.addTask(TaskWith75Mins());
+        a.addTask(LastTask());
+        return a;
     }
     
     private WorkDay MyDay()
@@ -95,6 +165,16 @@ public class WorkDayTest {
     private WorkDay FutureDay()
     {
         return new WorkDay(LocalDate.of(3016, 12, 12));
+    }
+    
+    private WorkDay Weekend()
+    {
+        return new WorkDay(LocalDate.of(2016, 12, 11));
+    }
+    
+    private WorkDay notWeekend()
+    {
+        return new WorkDay(LocalDate.of(2016, 12, 12));
     }
     
     // Test 1    
@@ -175,6 +255,73 @@ public class WorkDayTest {
     }
     
     // Test 12
-    //@Test
+    @Test(expected = NotMultipleQuarterHourException.class)
+    public void NotQuarterTest()
+    {
+        MyDayTwo();
+    }
     
+    // Test 13
+    @Test
+    public void NotWeekendTest()
+    {
+        assertEquals(notWeekend().isWeekDay(notWeekend().getActualDay()),true);
+    }
+    
+    // Test 14
+    @Test
+    public void WeekendTest()
+    {
+        assertEquals(Weekend().isWeekDay(Weekend().getActualDay()),false);
+    }
+    
+    // Test 15
+    @Test
+    public void LastTaskTest()
+    {
+        assertEquals(LastDay().endTimeOfTheLastTask(),LocalTime.of(11,45));
+    }
+    
+    // Test 16
+    @Test
+    public void LastTaskTest2()
+    {
+        assertEquals(emptyWorkDay().endTimeOfTheLastTask(),null);
+    }
+    
+    // Test 17
+    @Test
+    public void SepTest1()
+    {
+        assertEquals(SepDay1().isSeparatedTime(),true);
+    }
+   
+    // Test 18
+    @Test
+    public void SepTest2()
+    {
+        assertEquals(SepDay2().isSeparatedTime(),false);
+    }
+
+    // Test 19
+    @Test
+    public void SepTest3()
+    {
+        assertEquals(SepDay3().isSeparatedTime(),false);
+    }
+
+    // Test 20
+    @Test
+    public void SepTest4()
+    {
+        assertEquals(SepDay4().isSeparatedTime(),false);
+    }
+    
+/*    // Test 21
+    @Test
+    public void SepTest5()
+    {
+        sepDay5();
+    }
+*/
 }

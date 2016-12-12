@@ -29,7 +29,7 @@ public class WorkMonth {
     {
             if (isWeekendEnabled == true) {
                 days.add(wd);
-            }else if(!(wd.isWeekDay()) && isWeekendEnabled == false){
+            }else if(!(wd.isWeekDay(wd.getActualDay())) && isWeekendEnabled == false){
                 System.out.println("This is not a workday!");
         }
     }

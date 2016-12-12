@@ -206,4 +206,11 @@ public class TaskTest {
         Task t = NoComment();
         assertEquals(t.stringToLocalTime("09:00"),LocalTime.of(9, 0));
     }
+    
+    // Test +1
+    @Test(expected = NotMultipleQuarterHourException.class)
+    public void Multiple()
+    {
+        getMinTaskGood().setEndTime(LocalTime.of(0, 35));
+    }
 }

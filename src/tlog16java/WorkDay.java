@@ -3,10 +3,12 @@ package tlog16java;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.ArrayList;
 import tlog16java.Exceptions.NegativeMinutesOfWorkException;
 import tlog16java.Exceptions.FutureWorkException;
+import tlog16java.Exceptions.NoTaskException;
 
 /**
  *
@@ -81,13 +83,9 @@ public class WorkDay{
         tasks.add(t);
     }
     
-    public boolean isWeekDay()
+    public boolean isWeekDay(LocalDate date)
     {
-        LocalDate today;
-        DayOfWeek x;
-        today = LocalDate.now();
-        x = today.getDayOfWeek();
-        return !((x == DayOfWeek.SATURDAY) || (x == DayOfWeek.SUNDAY));
+        return !((date.getDayOfWeek() == DayOfWeek.SATURDAY) || (date.getDayOfWeek() == DayOfWeek.SUNDAY));
     }
     
     public WorkDay(LocalDate date, long reqmin)
@@ -101,6 +99,32 @@ public class WorkDay{
         setActualDay(date);
     }
     
+    public LocalTime endTimeOfTheLastTask()
+    {
+        if(getTasks().isEmpty()) return null;
+        return getTasks().get(getTasks().size()-1).getEndTime();
+    }
     
+    public boolean isSeparatedTime()
+    {       
+        int i,j;
+        LocalTime a,b,c,d;
+        boolean after = true, before = true;
+        if(getTasks().isEmpty()) throw new NoTaskException();
+        for (i=0;i<getTasks().size()-1;i++)
+        {
+            a = getTasks().get(i).getStartTime();
+            b = getTasks().get(i).getEndTime();
+            for(j=i+1;i<getTasks().size();i++)
+            {
+                    c = getTasks().get(j).getStartTime();
+                    d = getTasks().get(j).getEndTime();
+                    after = (a.isBefore(c) && a.isBefore(d)) ||( a.isAfter(c) && a.isAfter(d));
+                    before = (b.isBefore(c) && b.isBefore(d)) || (b.isBefore(c) && b.isBefore(d));
+                    if(!after || !before) return false;
+            }
+        }
+        return true;
+    }
     
 }
