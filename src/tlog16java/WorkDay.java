@@ -109,7 +109,6 @@ public class WorkDay{
     {       
         int i,j;
         LocalTime a,b,c,d;
-        boolean after = true, before = true;
         if(getTasks().isEmpty()) throw new NoTaskException();
         for (i=0;i<getTasks().size()-1;i++)
         {
@@ -117,11 +116,16 @@ public class WorkDay{
             b = getTasks().get(i).getEndTime();
             for(j=i+1;i<getTasks().size();i++)
             {
+                    boolean after,before;
                     c = getTasks().get(j).getStartTime();
                     d = getTasks().get(j).getEndTime();
                     after = (a.isBefore(c) && a.isBefore(d)) ||( a.isAfter(c) && a.isAfter(d));
                     before = (b.isBefore(c) && b.isBefore(d)) || (b.isBefore(c) && b.isBefore(d));
-                    if(!after || !before) return false;
+                    if(after && before) {
+                    } else {
+                        if(c.equals(b) || d.equals(a)){
+                        }else return false;
+                    }
             }
         }
         return true;

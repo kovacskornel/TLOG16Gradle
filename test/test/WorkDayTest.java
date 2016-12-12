@@ -53,7 +53,7 @@ public class WorkDayTest {
     
     private Task SepTask2()
     {
-        return new Task("8:45","9:45");
+        return new Task("08:45","9:45");
     }
     
     private Task SepTask3()
