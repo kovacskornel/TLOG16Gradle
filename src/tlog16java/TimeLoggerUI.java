@@ -97,11 +97,6 @@ private void listUnfinishedTask(int month, int day,TimeLogger tl)
            }   
 }
 
-private void finishTask(Task t)
-{
-
-}
-
 private void startTask(int m, int d, String taskid,String sTime, String comment, TimeLogger tl)
 {
     WorkMonth WM = tl.getMonths().get(m-1);
