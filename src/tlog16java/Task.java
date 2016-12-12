@@ -6,6 +6,7 @@ import tlog16java.Exceptions.NegativeMinutesOfWorkException;
 import tlog16java.Exceptions.NoTaskIDException;
 import tlog16java.Exceptions.NotExpectedTimeOrderException;
 import tlog16java.Exceptions.InvalidTaskIDException;
+import tlog16java.Exceptions.NotMultipleQuarterHourException;
 
 /**
  *
@@ -184,6 +185,7 @@ public  class Task{
 
     public final boolean isMultipleQuarterHour(long min)
     {
-        return min%15==0;
+        if(min%15!=0) throw new NotMultipleQuarterHourException();
+        else return true;
     } 
 }

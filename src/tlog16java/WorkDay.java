@@ -5,6 +5,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
+import tlog16java.Exceptions.NegativeMinutesOfWorkException;
+import tlog16java.Exceptions.FutureWorkException;
 
 /**
  *
@@ -24,14 +26,8 @@ public class WorkDay{
     
     public long getExtraMinPerDay()
     {
-        long x=0;
-        int i;
-        for (i=0;i<tasks.size();i++)
-        {
-            x+=tasks.get(i).getMinPerTask();
-        }
-        sumPerDay = x;
-        x -= requiredMinPerDay;
+        long x;
+        x = getSumPerDay() - requiredMinPerDay;
         return x;
     }
     
@@ -50,9 +46,10 @@ public class WorkDay{
         if(required != 0) requiredMinPerDay = required;
     }
     
-    private void setActualDay(LocalDate date)
+    public final void setActualDay(LocalDate date)
     {
-        actualDay = date;
+        if(date.isAfter(LocalDate.now())) throw new FutureWorkException();
+        else actualDay = date;
     }
     
     public long getRequiredMinPerDay() {
@@ -64,7 +61,13 @@ public class WorkDay{
     }
 
     public long getSumPerDay() {
-        return sumPerDay;
+        long x=0;
+        int i;
+        for (i=0;i<tasks.size();i++)
+        {
+            x+=tasks.get(i).getMinPerTask();
+        }
+        return x;
     }
 
     public void setSumPerDay(long sumPerDay) {
@@ -89,12 +92,13 @@ public class WorkDay{
     
     public WorkDay(LocalDate date, long reqmin)
     {
-       setActualDay(date);
-       requiredMinPerDay = reqmin; 
+        setActualDay(date);
+       if(reqmin < 0) throw new NegativeMinutesOfWorkException();
+       else requiredMinPerDay = reqmin;
     }
 
-    public WorkDay(LocalDate actualDay) {
-        this.actualDay = actualDay;
+    public WorkDay(LocalDate date) {
+        setActualDay(date);
     }
     
     
