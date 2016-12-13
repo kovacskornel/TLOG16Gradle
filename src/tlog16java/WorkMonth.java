@@ -11,8 +11,9 @@ import tlog16java.Exceptions.NotTheSameMonthException;
  *
  * @author precognox
  */
+@lombok.Getter
 public class WorkMonth {
-        
+    
     private List<WorkDay> days = new ArrayList<>();
     YearMonth date;
     private long sumPerMonth;
@@ -31,6 +32,18 @@ public class WorkMonth {
             if(day1!=day2) a = true;
         }
         return a;
+    }
+
+    public void setIsWeekendEnabled(boolean isWeekendEnabled) {
+        this.isWeekendEnabled = isWeekendEnabled;
+    }
+
+    public void setSumPerMonth(long sumPerMonth) {
+        this.sumPerMonth = sumPerMonth;
+    }
+
+    public void setRequiredMinPerMonth(long requiredMinPerMonth) {
+        this.requiredMinPerMonth = requiredMinPerMonth;
     }
     
     public void addWorkDay(WorkDay wd, boolean isWeekendEnabled) 
@@ -95,9 +108,7 @@ public class WorkMonth {
         return spm;
     }
 
-    public void setSumPerMonth(long sumPerMonth) {
-        this.sumPerMonth = sumPerMonth;
-    }
+
 
     public long getRequiredMinPerMonth() {
         long rpm = 0;
@@ -108,15 +119,6 @@ public class WorkMonth {
             }
         this.requiredMinPerMonth = rpm;
         return rpm;
-    }
-
-    public void setIsWeekendEnabled(boolean a)
-    {
-        this.isWeekendEnabled = a;
-    }
-    
-    public void setRequiredMinPerMonth(long requiredMinPerMonth) {
-        this.requiredMinPerMonth = requiredMinPerMonth;
     }
 
     public WorkMonth(YearMonth date) {

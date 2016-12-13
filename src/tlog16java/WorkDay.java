@@ -15,48 +15,25 @@ import tlog16java.Exceptions.NotSeparatedTimesException;
  *
  * @author precognox
  */
+@lombok.Getter
 public class WorkDay{
-    
+
     private final List<Task> tasks = new ArrayList<>();
     private long requiredMinPerDay=450;
     private LocalDate actualDay;
     private long sumPerDay;
     
-    public LocalDate getActualDay()
-    {
-        return actualDay;
-    }
-    
     public long getExtraMinPerDay()
     {
         long x;
-        setSumPerDay(getSumPerDay());
-        x = sumPerDay - requiredMinPerDay;
+        x = getSumPerDay() - requiredMinPerDay;
         return x;
-    }
-    
-    public List<Task> getTasks()
-    {
-        return tasks;
-    }
-    
-    public void setRequired(long required)
-    {
-        if(required != 0) requiredMinPerDay = required;
     }
     
     public final void setActualDay(LocalDate date)
     {
         if(date.isAfter(LocalDate.now())) throw new FutureWorkException();
         else actualDay = date;
-    }
-    
-    public long getRequiredMinPerDay() {
-        return requiredMinPerDay;
-    }
-
-    public void setRequiredMinPerDay(long requiredMinPerDay) {
-        this.requiredMinPerDay = requiredMinPerDay;
     }
 
     public long getSumPerDay() {
@@ -69,9 +46,15 @@ public class WorkDay{
         return x;
     }
 
+    public void setRequiredMinPerDay(long requiredMinPerDay) {
+        this.requiredMinPerDay = requiredMinPerDay;
+    }
+
     public void setSumPerDay(long sumPerDay) {
         this.sumPerDay = sumPerDay;
     }
+    
+    
     
     public void addTask(Task t)
     {
@@ -91,35 +74,36 @@ public class WorkDay{
     
     public WorkDay(LocalDate date, long reqmin)
     {
-        setActualDay(date);
+       setActualDay(date);
        if(reqmin < 0) throw new NegativeMinutesOfWorkException();
        else requiredMinPerDay = reqmin;
-       
     }
-
-    public WorkDay(LocalDate date) {
-        setActualDay(date);
+    
+    public WorkDay(LocalDate date)
+    {
+       setActualDay(date);
+       requiredMinPerDay = 450;
     }
     
     public LocalTime endTimeOfTheLastTask()
     {
-        if(getTasks().isEmpty()) return null;
-        return getTasks().get(getTasks().size()-1).getEndTime();
+        if(tasks.isEmpty()) return null;
+        return tasks.get(tasks.size()-1).getEndTime();
     }
     
     public final boolean isSeparatedTime(Task t)
     {       
         int i,j;
         LocalTime a,b,c,d;
-        if(getTasks().isEmpty()) throw new NoTaskException();
+        if(tasks.isEmpty()) throw new NoTaskException();
 
             a = t.getStartTime();
             b = t.getEndTime();
-            for(j=0;j<getTasks().size();j++)
+            for(j=0;j<tasks.size();j++)
             {
                     boolean after,before;
-                    c = getTasks().get(j).getStartTime();
-                    d = getTasks().get(j).getEndTime();
+                    c = tasks.get(j).getStartTime();
+                    d = tasks.get(j).getEndTime();
                     after = (a.isBefore(c) && a.isBefore(d)) ||( a.isAfter(c) && a.isAfter(d));
                     before = (b.isBefore(c) && b.isBefore(d)) || (b.isAfter(c) && b.isAfter(d));
                     if(!after || !before) {

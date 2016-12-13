@@ -12,8 +12,13 @@ import tlog16java.Exceptions.NotMultipleQuarterHourException;
  *
  * @author precognox
  */
-
+@lombok.Getter
 public  class Task{
+    
+    private String taskId;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private String comment;
     
     public final boolean isValidRedmineTaskId(String ID)
     {
@@ -35,21 +40,18 @@ public  class Task{
     LocalTime x = LocalTime.of(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
     return x;
     }
-    
-    private String taskId;
-    private LocalTime startTime;
-    private LocalTime endTime;
-    private String comment;
 
+    
+    
     public long getMinPerTask()
     {
         long x=0;
-        if(endTime != null && getEndTime().getHour()*60+getEndTime().getMinute() > getStartTime().getHour()*60+getStartTime().getMinute())
+        if(endTime != null && endTime.getHour()*60+endTime.getMinute() > startTime.getHour()*60+startTime.getMinute())
         {
-        x += (getEndTime().getHour()*60+getEndTime().getMinute())-(getStartTime().getHour()*60+getStartTime().getMinute());
+        x += (endTime.getHour()*60+endTime.getMinute())-(startTime.getHour()*60+startTime.getMinute());
         }
         else if(endTime == null) throw new EmptyTimeFieldException("Empty end time!");
-        else if(getEndTime().getHour()*60+getEndTime().getMinute() > getStartTime().getHour()*60+getStartTime().getMinute()) throw new NotExpectedTimeOrderException();
+        else if(endTime.getHour()*60+endTime.getMinute() > startTime.getHour()*60+startTime.getMinute()) throw new NotExpectedTimeOrderException();
         return x;
         
     }
@@ -123,27 +125,6 @@ public  class Task{
         {
             this.taskId = taskId;
         }else if(!isValidRedmineTaskId(taskId) || !isValidRedmineTaskId(taskId)) throw new InvalidTaskIDException();
-    }
-     
-    public String getTaskId() {
-        if(!"".equals(taskId) && taskId != null) return taskId;
-        else throw new NoTaskIDException();
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public LocalTime getEndTime() {
-        if(endTime != null)
-        {
-        return endTime;
-        }
-        else throw new EmptyTimeFieldException();
-    }
-    
-    public String getComment() {
-        return comment;
     }
 
     public void setTaskId(String taskId) {
