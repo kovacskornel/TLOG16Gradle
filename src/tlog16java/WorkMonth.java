@@ -1,7 +1,7 @@
 package tlog16java;
 
-import java.time.Month;
 import java.time.YearMonth;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 import tlog16java.Exceptions.WeekendNotEnabledException;
@@ -20,7 +20,14 @@ public class WorkMonth {
     
     public boolean IsNewDate(WorkDay x)
     {
-        return x != null;
+        int i;
+        for(i=0;i<days.size();i++)
+        {
+            int day1 = days.get(i).getActualDay().getDayOfMonth();
+            int day2 = x.getActualDay().getDayOfMonth(); 
+            return day1!=day2;
+        }
+        return false;
     }
     
     public void addWorkDay(WorkDay wd, boolean isWeekendEnabled) 
@@ -108,7 +115,7 @@ public class WorkMonth {
     
     public boolean isSameMonth(WorkDay wd)
     {
-        return (wd.getActualDay().getMonth().equals(date.getMonth()) && wd.getActualDay().getYear() == date.getYear() );
+        return (wd.getActualDay().getMonth().equals(date.getMonth()) && wd.getActualDay().getYear() == date.getYear());
     }
     
 }

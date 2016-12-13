@@ -156,5 +156,34 @@ public class WorkMonthTest {
     }
     
     // Test 13
+    @Test
+    public void isSameMonth3()
+    {
+        WorkDay wd = new WorkDay(LocalDate.of(2016, 9, 1));
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 8));
+        wm.addWorkDay(wd);
+        assertEquals(wm.isSameMonth(wd), false);
+    }
     
+    // Test 14
+    @Test
+    public void isNewDateTest()
+    {
+        WorkDay wd = new WorkDay(LocalDate.of(2016, 9, 1));
+        WorkDay wd2 = new WorkDay(LocalDate.of(2016, 9, 1));
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 9));
+        wm.addWorkDay(wd);
+        assertEquals(wm.IsNewDate(wd2),false);
+    }
+    
+    // Test 15
+    @Test
+    public void isNewDateTest2()
+    {
+        WorkDay wd = new WorkDay(LocalDate.of(2016, 9, 1));
+        WorkDay wd2 = new WorkDay(LocalDate.of(2016, 9, 2));
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 9));
+        wm.addWorkDay(wd);
+        assertEquals(wm.IsNewDate(wd2),true);        
+    }
 }
