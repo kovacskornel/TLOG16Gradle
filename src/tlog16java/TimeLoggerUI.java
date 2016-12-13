@@ -2,7 +2,6 @@ package tlog16java;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Scanner;
-import tlog16java.Exceptions.*;
 
 
 /**

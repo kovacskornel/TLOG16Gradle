@@ -64,8 +64,7 @@ public class WorkDayTest {
     private WorkDay LastDay()
     {
         WorkDay a = new WorkDay(LocalDate.now());
-        a.addTask(TaskWith75Mins());
-        a.addTask(LastTask());
+        
         return a;
     }
     
@@ -86,8 +85,6 @@ public class WorkDayTest {
     private WorkDay twoTasks()
     {
         WorkDay a = new WorkDay(LocalDate.now());
-        a.addTask(TaskWith75Mins());
-        a.addTask(NextTask());
         return a;
     }
     
