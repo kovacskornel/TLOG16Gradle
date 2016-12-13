@@ -25,9 +25,12 @@ public class WorkDay{
     private LocalDate actualDay;
     private long sumPerDay;
     
+<<<<<<< HEAD
     /**
      * @return the extra minutes worked this day
      */
+=======
+>>>>>>> 4713fc9f0f462af634c06cf969c42bad22b5f266
     public long getExtraMinPerDay()
     {
         long x;
@@ -35,11 +38,14 @@ public class WorkDay{
         return x;
     }
     
+<<<<<<< HEAD
     /**
      * setActualDay is a method to set the date of the WorkDay
      * @param date the date of the working day
      * @throws FutureWorkException if the date is in the future
      */
+=======
+>>>>>>> 4713fc9f0f462af634c06cf969c42bad22b5f266
     public final void setActualDay(LocalDate date)
     {
         if(date.isAfter(LocalDate.now())) throw new FutureWorkException();
@@ -60,26 +66,37 @@ public class WorkDay{
         return x;
     }
 
+<<<<<<< HEAD
     /**
      *
      * @param requiredMinPerDay set the required minutes to work this workday
      */
+=======
+>>>>>>> 4713fc9f0f462af634c06cf969c42bad22b5f266
     public void setRequiredMinPerDay(long requiredMinPerDay) {
         this.requiredMinPerDay = requiredMinPerDay;
     }
 
+<<<<<<< HEAD
     /**
      *
      * @param sumPerDay set the minutes worked this workday
      */
+=======
+>>>>>>> 4713fc9f0f462af634c06cf969c42bad22b5f266
     public void setSumPerDay(long sumPerDay) {
         this.sumPerDay = sumPerDay;
     }
     
+<<<<<<< HEAD
     /**
      * Adds a {@link Task} to the list
      * @param t A Task from user input
      */
+=======
+    
+    
+>>>>>>> 4713fc9f0f462af634c06cf969c42bad22b5f266
     public void addTask(Task t)
     {
         if(tasks.isEmpty())

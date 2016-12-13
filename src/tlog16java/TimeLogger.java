@@ -14,11 +14,15 @@ public class TimeLogger{
     @lombok.Getter
     private final List<WorkMonth> months = new ArrayList<>();
     
+<<<<<<< HEAD
     /**
      * Checks if the given working month exists
      * @param wm Working month
      * @return true if the WorkMonth already added to TimeLogger<br>false if it is a new WorkMonth
      */
+=======
+
+>>>>>>> 4713fc9f0f462af634c06cf969c42bad22b5f266
     public boolean isNewMonth(WorkMonth wm) {
         boolean isnew = true;
         int i;
@@ -31,11 +35,16 @@ public class TimeLogger{
         return isnew;
     }
     
+<<<<<<< HEAD
     /**
      *Adds a month to the TimeLogger
      * @param wm Working month
      * @exception NotNewMonthException if the month already exists
      */
+=======
+    
+    
+>>>>>>> 4713fc9f0f462af634c06cf969c42bad22b5f266
     public void addMonth(WorkMonth wm) {
         if (isNewMonth(wm)) {
             if (months.add(wm)) {
