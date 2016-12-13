@@ -30,18 +30,14 @@ public class WorkDay{
     public long getExtraMinPerDay()
     {
         long x;
-        x = getSumPerDay() - requiredMinPerDay;
+        setSumPerDay(getSumPerDay());
+        x = sumPerDay - requiredMinPerDay;
         return x;
     }
     
     public List<Task> getTasks()
     {
         return tasks;
-    }
-    
-    public long getRequired()
-    {
-        return requiredMinPerDay;
     }
     
     public void setRequired(long required)

@@ -29,7 +29,7 @@ private void createDay(int month, int day, long workh, TimeLogger tl)
 {
     WorkMonth WM = tl.getMonths().get(month-1);
     WorkDay wd = new WorkDay(LocalDate.of(WM.getDate().getYear(), WM.getDate().getMonth(), day), workh);
-    WM.addWorkDay(wd, true);
+    WM.addWorkDay(wd);
 }
 
 private void listDays(int Month, TimeLogger tl)
