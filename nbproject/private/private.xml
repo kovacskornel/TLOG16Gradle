@@ -11,14 +11,12 @@
             <file>file:/C:/Users/Flamy/Desktop/precognox/TLOG16Java/src/tlog16java/Task.java</file>
         </group>
         <group name="akalman-LT">
-            <file>file:/home/precognox/TLOG16Java/TLOG16Java/src/tlog16java/Exceptions/EmptyTimeFieldException.java</file>
             <file>file:/home/precognox/TLOG16Java/TLOG16Java/src/tlog16java/WorkMonth.java</file>
-            <file>file:/home/precognox/TLOG16Java/TLOG16Java/test/test/WorkDayTest.java</file>
             <file>file:/home/precognox/TLOG16Java/TLOG16Java/src/tlog16java/WorkDay.java</file>
-            <file>file:/home/precognox/TLOG16Java/TLOG16Java/test/test/TaskTest.java</file>
             <file>file:/home/precognox/TLOG16Java/TLOG16Java/src/tlog16java/TimeLoggerUI.java</file>
             <file>file:/home/precognox/TLOG16Java/TLOG16Java/src/tlog16java/TLOG16Java.java</file>
             <file>file:/home/precognox/TLOG16Java/TLOG16Java/src/tlog16java/Task.java</file>
+            <file>file:/home/precognox/TLOG16Java/TLOG16Java/src/tlog16java/TimeLogger.java</file>
         </group>
     </open-files>
 </project-private>

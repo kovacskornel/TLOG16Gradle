@@ -23,8 +23,7 @@ public  class Task{
     private LocalTime startTime;
     private LocalTime endTime;
     private String comment;
-    
-<<<<<<< HEAD
+
     /**
      * <h3>isValidRedmineTaskId</h3>
      * Check if a Task's Id only contains 4 numbers
@@ -32,8 +31,6 @@ public  class Task{
      * @param ID Gets the ID from user input
      * @return boolean<br>true if it is a valid redmine ID<br>false if it is not a valid redmine
      */
-=======
->>>>>>> 4713fc9f0f462af634c06cf969c42bad22b5f266
     public final boolean isValidRedmineTaskId(String ID)
     {
         return ID.matches("\\d{4}");
@@ -73,17 +70,14 @@ public  class Task{
     return x;
     }
 
-<<<<<<< HEAD
     /**
      * <h3>GetMinPerTask</h3>
      * Gets working minutes of the task
      * @return long - the working minutes of the task
      * @throws NotExpectedTimeOrderException if a tasks ends before it starts
      */
-=======
     
     
->>>>>>> 4713fc9f0f462af634c06cf969c42bad22b5f266
     public long getMinPerTask()
     {
         long x=0;

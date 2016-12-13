@@ -20,11 +20,7 @@ import tlog16java.Exceptions.NotTheSameMonthException;
  */
 @lombok.Getter
 public class WorkMonth {
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 4713fc9f0f462af634c06cf969c42bad22b5f266
     private List<WorkDay> days = new ArrayList<>();
     YearMonth date;
     private long sumPerMonth;
@@ -50,38 +46,26 @@ public class WorkMonth {
         }
         return a;
     }
-
-<<<<<<< HEAD
     /**
      *
      * @param isWeekendEnabled boolean - Sets the weekend work
      * <br> true - Weekend work enabled
      * <br> false - Weekend work disabled
      */
-=======
->>>>>>> 4713fc9f0f462af634c06cf969c42bad22b5f266
     public void setIsWeekendEnabled(boolean isWeekendEnabled) {
         this.isWeekendEnabled = isWeekendEnabled;
     }
-
-<<<<<<< HEAD
     /**
      *Sets the minutes of working hours this month
      * @param sumPerMonth minutes of working hours this month
      */
-=======
->>>>>>> 4713fc9f0f462af634c06cf969c42bad22b5f266
     public void setSumPerMonth(long sumPerMonth) {
         this.sumPerMonth = sumPerMonth;
     }
-
-<<<<<<< HEAD
     /**
      *Sets the required minutes to work this month
      * @param requiredMinPerMonth required minutes to work this month
      */
-=======
->>>>>>> 4713fc9f0f462af634c06cf969c42bad22b5f266
     public void setRequiredMinPerMonth(long requiredMinPerMonth) {
         this.requiredMinPerMonth = requiredMinPerMonth;
     }
@@ -176,15 +160,10 @@ public class WorkMonth {
         return spm;
     }
 
-<<<<<<< HEAD
     /**
      *
      * @return The required minutes to work this WorkMonth
      */
-=======
-
-
->>>>>>> 4713fc9f0f462af634c06cf969c42bad22b5f266
     public long getRequiredMinPerMonth() {
         long rpm = 0;
         int i;
