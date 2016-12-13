@@ -79,9 +79,13 @@ public class WorkDay{
     
     public void addTask(Task t)
     {
-        if(tasks.isEmpty()) tasks.add(t);
-        if(!isSeparatedTime(t)) throw new NotSeparatedTimesException();
-        tasks.add(t);
+        if(tasks.isEmpty())
+        {
+            tasks.add(t);
+        }
+        else if(!isSeparatedTime(t)) throw new NotSeparatedTimesException();
+        else tasks.add(t);
+        
     }
     
     public boolean isWeekDay(LocalDate date)
@@ -121,11 +125,11 @@ public class WorkDay{
                     c = getTasks().get(j).getStartTime();
                     d = getTasks().get(j).getEndTime();
                     after = (a.isBefore(c) && a.isBefore(d)) ||( a.isAfter(c) && a.isAfter(d));
-                    before = (b.isBefore(c) && b.isBefore(d)) || (b.isBefore(c) && b.isBefore(d));
-                    if(after && before) {
-                    } else {
+                    before = (b.isBefore(c) && b.isBefore(d)) || (b.isAfter(c) && b.isAfter(d));
+                    if(!after || !before) {
                         if(c.equals(b) || d.equals(a)){
                         }else return false;
+                    } else {
                     }
             }
         

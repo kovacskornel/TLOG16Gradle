@@ -14,6 +14,7 @@ import static org.junit.Assert.assertEquals;
 import tlog16java.Exceptions.NegativeMinutesOfWorkException;
 import tlog16java.Exceptions.FutureWorkException;
 import tlog16java.Exceptions.NotMultipleQuarterHourException;
+import tlog16java.Exceptions.NotSeparatedTimesException;
 
 /**
  *
@@ -59,13 +60,6 @@ public class WorkDayTest {
     private Task SepTask3()
     {
         return new Task("08:30","9:45");
-    }
-    
-    private WorkDay LastDay()
-    {
-        WorkDay a = new WorkDay(LocalDate.now());
-        
-        return a;
     }
     
     private WorkDay MyDay()
@@ -119,9 +113,9 @@ public class WorkDayTest {
         return new WorkDay(LocalDate.now(), -5);
     }
     
-    private WorkDay FutureDay()
+    private WorkDay Tomorrow()
     {
-        return new WorkDay(LocalDate.of(3016, 12, 12));
+        return new WorkDay(LocalDate.now().plusDays(1));
     }
     
     private WorkDay Weekend()
@@ -159,7 +153,8 @@ public class WorkDayTest {
     @Test
     public void getExtraTest4()
     {
-        assertEquals(emptyWorkDay().getExtraMinPerDay(),-emptyWorkDay().getRequiredMinPerDay());
+        WorkDay x = emptyWorkDay();
+        assertEquals(x.getExtraMinPerDay(),-x.getRequiredMinPerDay());
     }
     
     // Test 5
@@ -180,21 +175,24 @@ public class WorkDayTest {
     @Test(expected = FutureWorkException.class)
     public void FutureWork()
     {
-        FutureDay().setActualDay(LocalDate.of(5000, Month.MARCH, 3));
+        Tomorrow().setActualDay(LocalDate.of(5000, Month.MARCH, 3));
     }  
     
     // Test 8
     @Test(expected = FutureWorkException.class)
     public void FutureWork2()
     {
-        FutureDay();
+        Tomorrow();
     }
     
     // Test 9
     @Test
     public void sumOfTwo()
     {
-        assertEquals(twoTasks().getSumPerDay(),135);
+        WorkDay a = emptyWorkDay();
+        a.addTask(TaskWith75Mins());
+        a.addTask(NextTask());
+        assertEquals(a.getSumPerDay(),135);
     }
     
     // Test 10
@@ -236,7 +234,10 @@ public class WorkDayTest {
     @Test
     public void LastTaskTest()
     {
-        assertEquals(LastDay().endTimeOfTheLastTask(),LocalTime.of(11,45));
+        WorkDay a = emptyWorkDay();
+        a.addTask(TaskWith75Mins());
+        a.addTask(LastTask());
+        assertEquals(a.endTimeOfTheLastTask(),LocalTime.of(11,45));
     }
     
     // Test 16
@@ -254,33 +255,41 @@ public class WorkDayTest {
         a.addTask(SepTask1());
         assertEquals(a.isSeparatedTime(SepTask2()),true);
     }
-/*   
+   
     // Test 18
     @Test
     public void SepTest2()
     {
-        assertEquals(SepDay2().isSeparatedTime(),false);
+        WorkDay a = new WorkDay(LocalDate.now());
+        a.addTask(SepTask1());
+        assertEquals(a.isSeparatedTime(SepTask3()),false);
     }
 
     // Test 19
     @Test
     public void SepTest3()
-    {
-        assertEquals(SepDay3().isSeparatedTime(),false);
+    {   
+        WorkDay a = new WorkDay(LocalDate.now());
+        a.addTask(SepTask3());
+        assertEquals(a.isSeparatedTime(SepTask1()),false);
     }
 
     // Test 20
     @Test
     public void SepTest4()
     {
-        assertEquals(SepDay4().isSeparatedTime(),false);
+        WorkDay a = new WorkDay(LocalDate.now());
+        a.addTask(SepTask1());
+        assertEquals(a.isSeparatedTime(SepTask1()),false);
     }
     
-/*    // Test 21
-    @Test
+    // Test 21
+    @Test(expected = NotSeparatedTimesException.class)
     public void SepTest5()
     {
-        sepDay5();
+        WorkDay a = emptyWorkDay();
+        a.addTask(SepTask1());
+        a.addTask(SepTask3());
     }
-*/
+
 }
