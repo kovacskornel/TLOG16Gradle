@@ -1,9 +1,11 @@
 package tlog16java;
 
 import java.time.DayOfWeek;
+import java.time.Month;
 import java.time.YearMonth;
 import java.util.List;
 import java.util.ArrayList;
+import tlog16java.Exceptions.WeekendNotEnabledException;
 
 /**
  *
@@ -19,7 +21,10 @@ public class WorkMonth {
  
     public boolean isSameMonth(WorkDay wd)
     {
-        return (wd.getActualDay().getMonth() == date.getMonth());
+        boolean year= false,month= false;
+        if(wd.getActualDay().getYear() == date.getYear()) year = true;
+        if(wd.getActualDay().getMonth() == date.getMonth()) month = true;
+        return (year && month);
     }
     
     public boolean IsNewDate(WorkDay x)
@@ -31,18 +36,20 @@ public class WorkMonth {
     {
             if (isWeekendEnabled == true) {
                 days.add(wd);
+                date = YearMonth.of(wd.getActualDay().getYear(), wd.getActualDay().getMonth());
             }else if((!wd.isWeekDay(wd.getActualDay())) && isWeekendEnabled == false){
-                System.out.println("Weekend working is not enabled!");
+                throw new WeekendNotEnabledException();
         }
             else if(isWeekendEnabled == false && wd.isWeekDay(wd.getActualDay()))
             {
                 days.add(wd);
+                date = YearMonth.of(wd.getActualDay().getYear(), wd.getActualDay().getMonth());
             }
     }
     
     public void addWorkDay(WorkDay wd) 
     {
-        addWorkDay(wd,false);
+        addWorkDay(wd,isWeekendEnabled);
     }
     
     public long getExtraMinPerMonth()
