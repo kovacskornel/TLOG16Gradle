@@ -3,6 +3,7 @@ package tlog16java;
 import java.util.List;
 
 import java.util.ArrayList;
+import tlog16java.Exceptions.NotNewMonthException;
 /**
  *
  * @author precognox
@@ -16,11 +17,11 @@ public class TimeLogger{
     }
     
 
-    public boolean isNewMonth(WorkMonth wm, TimeLogger tl) {
+    public boolean isNewMonth(WorkMonth wm) {
         boolean isnew = true;
         int i;
-        for (i = 0; i < tl.getMonths().size(); i++) {
-            if (tl.getMonths().get(i).date.equals(wm.date)) {
+        for (i = 0; i < getMonths().size(); i++) {
+            if (getMonths().get(i).date.equals(wm.date)) {
                 isnew = false;
                 break;
             }
@@ -28,15 +29,15 @@ public class TimeLogger{
         return isnew;
     }
     
-    public void addMonth(WorkMonth wm, TimeLogger tl) {
-        if (isNewMonth(wm, tl)) {
+    public void addMonth(WorkMonth wm) {
+        if (isNewMonth(wm)) {
             if (getMonths().add(wm)) {
                 System.out.println("Successfully added a WorkMonth");
             } else {   
                 System.out.println("Not added!");
             }
         } else {
-            System.out.println("This month is already existing!");
+            throw new NotNewMonthException();
         }
     }
     
