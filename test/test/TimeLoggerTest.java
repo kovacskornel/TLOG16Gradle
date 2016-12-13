@@ -14,8 +14,9 @@ import tlog16java.WorkDay;
 import tlog16java.WorkMonth;
 import tlog16java.Exceptions.NotNewMonthException;
 /**
- *
- * @author precognox
+ * @author Kovács Kornél
+ * @version 0.1.0
+ * @since 2016-11-03
  */
 public class TimeLoggerTest {
     

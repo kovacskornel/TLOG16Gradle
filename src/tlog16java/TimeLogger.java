@@ -5,23 +5,25 @@ import java.util.List;
 import java.util.ArrayList;
 import tlog16java.Exceptions.NotNewMonthException;
 /**
- *
- * @author precognox
+ * TimeLogger is the class which contains the working months
+ * @author Kovács Kornél
+ * @version 0.1.0
+ * @since 2016-11-03
  */
 public class TimeLogger{
+    @lombok.Getter
     private final List<WorkMonth> months = new ArrayList<>();
     
-    public List<WorkMonth> getMonths()
-    {
-        return months;
-    }
-    
-
+    /**
+     * Checks if the given working month exists
+     * @param wm Working month
+     * @return true if the WorkMonth already added to TimeLogger<br>false if it is a new WorkMonth
+     */
     public boolean isNewMonth(WorkMonth wm) {
         boolean isnew = true;
         int i;
-        for (i = 0; i < getMonths().size(); i++) {
-            if (getMonths().get(i).date.equals(wm.date)) {
+        for (i = 0; i < months.size(); i++) {
+            if (months.get(i).date.equals(wm.date)) {
                 isnew = false;
                 break;
             }
@@ -29,9 +31,14 @@ public class TimeLogger{
         return isnew;
     }
     
+    /**
+     *Adds a month to the TimeLogger
+     * @param wm Working month
+     * @exception NotNewMonthException if the month already exists
+     */
     public void addMonth(WorkMonth wm) {
         if (isNewMonth(wm)) {
-            if (getMonths().add(wm)) {
+            if (months.add(wm)) {
                 System.out.println("Successfully added a WorkMonth");
             } else {   
                 System.out.println("Not added!");

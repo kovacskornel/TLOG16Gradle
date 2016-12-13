@@ -5,7 +5,11 @@ import java.util.Scanner;
 
 
 /**
- * @author precognox
+ * Contains methods for the user interface
+ * 
+ * @author Kovács Kornél
+ * @version 0.1.0
+ * @since 2016-11-03
  */
 
 public class TimeLoggerUI {
@@ -298,7 +302,11 @@ private void menuSelect(TimeLogger tl)
     }
 }    
    
-public void menu(TimeLogger tl)
+    /**
+     * Prints the menu
+     * @param tl {@link TimeLogger}
+     */
+    public void menu(TimeLogger tl)
 {
     System.out.println("0. Exit");
     System.out.println("1. List months");

@@ -9,47 +9,82 @@ import tlog16java.Exceptions.InvalidTaskIDException;
 import tlog16java.Exceptions.NotMultipleQuarterHourException;
 
 /**
- *
- * @author precognox
+ * <h1>Task Class</h1>
+ * This is the task class<br>
+ * It contains the required informations of a task
+ * @author Kovács Kornél
+ * @version 0.1.0
+ * @since 2016-11-03
  */
-
+@lombok.Getter
 public  class Task{
-    
-    public final boolean isValidRedmineTaskId(String ID)
-    {
-        return ID.matches("\\d{4}");
-    }
-    
-    public final boolean isValidLTTaskId(String ID)
-    {
-        return ID.matches("LT-\\d{4}");
-    }
-    
-    public boolean isValidTaskID(String ID)
-    {
-        return isValidRedmineTaskId(ID) || isValidLTTaskId(ID);
-    }
- 
-    public final LocalTime stringToLocalTime(String a){
-    String[] parts = a.split(":");
-    LocalTime x = LocalTime.of(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
-    return x;
-    }
     
     private String taskId;
     private LocalTime startTime;
     private LocalTime endTime;
     private String comment;
+    
+    /**
+     * <h3>isValidRedmineTaskId</h3>
+     * Check if a Task's Id only contains 4 numbers
+     * 
+     * @param ID Gets the ID from user input
+     * @return boolean<br>true if it is a valid redmine ID<br>false if it is not a valid redmine
+     */
+    public final boolean isValidRedmineTaskId(String ID)
+    {
+        return ID.matches("\\d{4}");
+    }
+    /**
+     * <h3>isValidLTTaskId</h3>
+     * Check if a Task's Id only contains "LT-" and 4 numbers
+     * 
+     * @param ID Gets the ID from user input
+     * @return boolean<br>true if it is a valid LT task ID<br>false if it is not a valid LT task
+     */    
+    public final boolean isValidLTTaskId(String ID)
+    {
+        return ID.matches("LT-\\d{4}");
+    }
+    
+    /**
+     * <h3>isValidTaskID</h3>
+     * check if the ID got from user input is an LT or redmine task
+     * @param ID Gets the ID from user input
+     * @return boolean<br>true if it is a valid redmine or LT task ID<br>false if it is not a valid redmine or LT task
+     */
+    public boolean isValidTaskID(String ID)
+    {
+        return isValidRedmineTaskId(ID) || isValidLTTaskId(ID);
+    }
+ 
+    /**
+     *<h3>stringToLocalTime</h3>
+     * Converts a string to LocalTime<br>Format: (HH:MM)
+     * @param a Gets a string from user input
+     * @return LocalTime<br>Hour from HH<br>Minutes from MM
+     */
+    public final LocalTime stringToLocalTime(String a){
+    String[] parts = a.split(":");
+    LocalTime x = LocalTime.of(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
+    return x;
+    }
 
+    /**
+     * <h3>GetMinPerTask</h3>
+     * Gets working minutes of the task
+     * @return long - the working minutes of the task
+     * @throws NotExpectedTimeOrderException if a tasks ends before it starts
+     */
     public long getMinPerTask()
     {
         long x=0;
-        if(endTime != null && getEndTime().getHour()*60+getEndTime().getMinute() > getStartTime().getHour()*60+getStartTime().getMinute())
+        if(endTime != null && endTime.getHour()*60+endTime.getMinute() > startTime.getHour()*60+startTime.getMinute())
         {
-        x += (getEndTime().getHour()*60+getEndTime().getMinute())-(getStartTime().getHour()*60+getStartTime().getMinute());
+        x += (endTime.getHour()*60+endTime.getMinute())-(startTime.getHour()*60+startTime.getMinute());
         }
         else if(endTime == null) throw new EmptyTimeFieldException("Empty end time!");
-        else if(getEndTime().getHour()*60+getEndTime().getMinute() > getStartTime().getHour()*60+getStartTime().getMinute()) throw new NotExpectedTimeOrderException();
+        else if(endTime.getHour()*60+endTime.getMinute() > startTime.getHour()*60+startTime.getMinute()) throw new NotExpectedTimeOrderException();
         return x;
         
     }
@@ -124,28 +159,12 @@ public  class Task{
             this.taskId = taskId;
         }else if(!isValidRedmineTaskId(taskId) || !isValidRedmineTaskId(taskId)) throw new InvalidTaskIDException();
     }
-     
-    public String getTaskId() {
-        if(!"".equals(taskId) && taskId != null) return taskId;
-        else throw new NoTaskIDException();
-    }
 
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public LocalTime getEndTime() {
-        if(endTime != null)
-        {
-        return endTime;
-        }
-        else throw new EmptyTimeFieldException();
-    }
-    
-    public String getComment() {
-        return comment;
-    }
-
+    /**
+     * Sets the Task's ID
+     * @param taskId the Task's ID from user input
+     * @throws InvalidTaskIDException if the Task's ID is invalid
+     */
     public void setTaskId(String taskId) {
         if(isValidLTTaskId(taskId) || isValidRedmineTaskId(taskId))
         {
@@ -155,13 +174,22 @@ public  class Task{
         
     }
 
+    /**
+     * Sets the starting time of a task
+     * @param startTime Starting time from user input
+     * @exception EmptyTimeFieldException if the user leaves the time field empty
+     */
     public final void setStartTime(LocalTime startTime) {
         if(startTime.getHour() !=0 || startTime.getMinute() != 0 && isMultipleQuarterHour(startTime.getMinute()))
         {
             this.startTime = startTime;
         } else throw new EmptyTimeFieldException("Empty start time!");
     }
-
+    /**
+     * Sets the finishing time of a task
+     * @param endTime Finishing time from user input
+     * @exception EmptyTimeFieldException if the user leaves the time field empty
+     */
     public final void setEndTime(LocalTime endTime) {
 
         if(endTime.getHour() !=0 || endTime.getMinute() != 0 && isMultipleQuarterHour(endTime.getMinute()))
@@ -174,18 +202,35 @@ public  class Task{
         }
     }
     
+    /**
+     * String input version of {@link setEndTime(LocalTime endTime)}
+     * @param startTime
+     */
     public final void setStartTime(String startTime) {
         setStartTime(stringToLocalTime(startTime));
     }
-
+    /**
+     * String input version of {@link setStartTime(LocalTime endTime)}
+     * @param endTime
+     */
     public final void setEndTime(String endTime) {
         setEndTime(stringToLocalTime(endTime));
     }
 
+    /**
+     *Sets the comment of a task
+     * @param comment string from user input
+     */
     public void setComment(String comment) {
         this.comment = comment;
     }
 
+    /**
+     *
+     * @param min Minutes of a time
+     * @return boolean<br>true if it is the multiple of quarter hour
+     * <br>false if it is not the multiple of quarter hour
+     */
     public final boolean isMultipleQuarterHour(long min)
     {
         if(min%15!=0) throw new NotMultipleQuarterHourException();
