@@ -12,7 +12,9 @@ import tlog16java.WorkDay;
 import tlog16java.Task;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import tlog16java.Exceptions.NotNewDateException;
 import tlog16java.Exceptions.WeekendNotEnabledException;
+import tlog16java.Exceptions.NotTheSameMonthException;
 /**
  *
  * @author precognox
@@ -94,7 +96,7 @@ public class WorkMonthTest {
         Task t = new Task("7:30","8:45");
         WorkDay wd = new WorkDay(LocalDate.of(2016,9,9));
         wd.addTask(t);
-        WorkMonth wm = new WorkMonth(YearMonth.of(9, 9));
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 9));
         wm.addWorkDay(wd);
         assertEquals(wd.getSumPerDay(),wm.getSumPerMonth());
     }
@@ -161,7 +163,6 @@ public class WorkMonthTest {
     {
         WorkDay wd = new WorkDay(LocalDate.of(2016, 9, 1));
         WorkMonth wm = new WorkMonth(YearMonth.of(2016, 8));
-        wm.addWorkDay(wd);
         assertEquals(wm.isSameMonth(wd), false);
     }
     
@@ -185,5 +186,49 @@ public class WorkMonthTest {
         WorkMonth wm = new WorkMonth(YearMonth.of(2016, 9));
         wm.addWorkDay(wd);
         assertEquals(wm.IsNewDate(wd2),true);        
+    }
+    
+    // Test 16
+    @Test
+    public void isNewDateTest3()
+    {
+        WorkDay wd2 = new WorkDay(LocalDate.of(2016, 9, 2));
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 9));
+        assertEquals(wm.IsNewDate(wd2),true);       
+    }
+    
+    // Test 17
+    @Test(expected = NotNewDateException.class)
+    public void inNewExcTest()
+    {
+        WorkDay wd = new WorkDay(LocalDate.of(2016, 9, 1));
+        WorkDay wd2 = new WorkDay(LocalDate.of(2016, 9, 1));
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 9));
+        wm.addWorkDay(wd);
+        wm.addWorkDay(wd2);
+    }
+    
+    // Test 18
+    @Test
+    public void isReqSumSameTest()
+    {
+        WorkDay wd = new WorkDay(LocalDate.of(2016, 9, 1));
+        WorkDay wd2 = new WorkDay(LocalDate.of(2016, 9, 2));
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 9));
+        wm.addWorkDay(wd);
+        wm.addWorkDay(wd2);
+        long sumofreq = wd.getRequiredMinPerDay() + wd2.getRequiredMinPerDay();
+        assertEquals(sumofreq,wm.getRequiredMinPerMonth());
+    }
+    
+    // Test 19
+    @Test(expected = NotTheSameMonthException.class)
+    public void NotSameMonthTest()
+    {
+        WorkDay wd = new WorkDay(LocalDate.of(2016, 9, 1));
+        WorkDay wd2 = new WorkDay(LocalDate.of(2016, 8, 30));
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 9));
+        wm.addWorkDay(wd);
+        wm.addWorkDay(wd2);
     }
 }

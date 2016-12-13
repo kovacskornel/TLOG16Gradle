@@ -1,10 +1,11 @@
 package tlog16java;
 
 import java.time.YearMonth;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 import tlog16java.Exceptions.WeekendNotEnabledException;
+import tlog16java.Exceptions.NotNewDateException;
+import tlog16java.Exceptions.NotTheSameMonthException;
 
 /**
  *
@@ -21,26 +22,35 @@ public class WorkMonth {
     public boolean IsNewDate(WorkDay x)
     {
         int i;
+        boolean a=false;
+        if(days.isEmpty()) return true;
         for(i=0;i<days.size();i++)
         {
             int day1 = days.get(i).getActualDay().getDayOfMonth();
             int day2 = x.getActualDay().getDayOfMonth(); 
-            return day1!=day2;
+            if(day1!=day2) a = true;
         }
-        return false;
+        return a;
     }
     
     public void addWorkDay(WorkDay wd, boolean isWeekendEnabled) 
     {
+    if(IsNewDate(wd))
+    {
+        if(isSameMonth(wd))
+        {
             if (isWeekendEnabled == true) {
-                days.add(wd);
-            }else if((!wd.isWeekDay(wd.getActualDay())) && isWeekendEnabled == false){
-                throw new WeekendNotEnabledException();
-        }
-            else if(isWeekendEnabled == false && wd.isWeekDay(wd.getActualDay()))
-            {
-                days.add(wd);
+            days.add(wd);
             }
+                else if((!wd.isWeekDay(wd.getActualDay())) && isWeekendEnabled == false){
+                    throw new WeekendNotEnabledException();
+                }
+                else if(isWeekendEnabled == false && wd.isWeekDay(wd.getActualDay()))
+                {
+                    days.add(wd);
+                }
+        }else throw new NotTheSameMonthException();
+    }else throw new NotNewDateException();
     }
     
     public void addWorkDay(WorkDay wd) 
