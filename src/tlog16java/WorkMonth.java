@@ -1,6 +1,5 @@
 package tlog16java;
 
-import java.time.DayOfWeek;
 import java.time.Month;
 import java.time.YearMonth;
 import java.util.List;
@@ -18,14 +17,6 @@ public class WorkMonth {
     private long sumPerMonth;
     private long requiredMinPerMonth;
     private boolean isWeekendEnabled = false;
- 
-    public boolean isSameMonth(WorkDay wd)
-    {
-        boolean year= false,month= false;
-        if(wd.getActualDay().getYear() == date.getYear()) year = true;
-        if(wd.getActualDay().getMonth() == date.getMonth()) month = true;
-        return (year && month);
-    }
     
     public boolean IsNewDate(WorkDay x)
     {
@@ -36,14 +27,12 @@ public class WorkMonth {
     {
             if (isWeekendEnabled == true) {
                 days.add(wd);
-                date = YearMonth.of(wd.getActualDay().getYear(), wd.getActualDay().getMonth());
             }else if((!wd.isWeekDay(wd.getActualDay())) && isWeekendEnabled == false){
                 throw new WeekendNotEnabledException();
         }
             else if(isWeekendEnabled == false && wd.isWeekDay(wd.getActualDay()))
             {
                 days.add(wd);
-                date = YearMonth.of(wd.getActualDay().getYear(), wd.getActualDay().getMonth());
             }
     }
     
@@ -70,8 +59,8 @@ public class WorkMonth {
     public void setDays(List<WorkDay> days) {
         this.days = days;
     }
-
-    public YearMonth getDate() {
+ 
+    public YearMonth getDate() {        
         return date;
     }
 
@@ -112,8 +101,15 @@ public class WorkMonth {
     public void setRequiredMinPerMonth(long requiredMinPerMonth) {
         this.requiredMinPerMonth = requiredMinPerMonth;
     }
-    
 
+    public WorkMonth(YearMonth date) {
+        this.date = date;
+    }
+    
+    public boolean isSameMonth(WorkDay wd)
+    {
+        return (wd.getActualDay().getMonth().equals(date.getMonth()) && wd.getActualDay().getYear() == date.getYear() );
+    }
     
 }
 

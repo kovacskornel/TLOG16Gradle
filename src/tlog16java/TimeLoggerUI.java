@@ -51,8 +51,7 @@ private void listDays(int Month, TimeLogger tl)
 
 private void addMonth(int y, int m,TimeLogger tl)
 {
-                WorkMonth WM = new WorkMonth();
-                WM.setDate(YearMonth.of(y, m));
+                WorkMonth WM = new WorkMonth(YearMonth.of(y,m));
                 tl.addMonth(WM, tl);
 }
 

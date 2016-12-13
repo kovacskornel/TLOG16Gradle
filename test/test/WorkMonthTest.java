@@ -5,6 +5,8 @@
  */
 package test;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.YearMonth;
 import tlog16java.WorkMonth;
 import tlog16java.WorkDay;
 import tlog16java.Task;
@@ -27,7 +29,7 @@ public class WorkMonthTest {
         Task t2 = new Task("8:45","9:45");
         WorkDay wd2 = new WorkDay(LocalDate.of(2016, 9, 1),420);
         wd2.addTask(t2);
-        WorkMonth wm = new WorkMonth();
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016,9));
         wm.addWorkDay(wd);
         wm.addWorkDay(wd2);
         assertEquals(wm.getSumPerMonth(),135);      
@@ -37,7 +39,7 @@ public class WorkMonthTest {
     @Test
     public void getSumTest2()
     {
-        WorkMonth wm = new WorkMonth();
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 9));
         assertEquals(wm.getSumPerMonth(),0);
     }
     
@@ -51,7 +53,7 @@ public class WorkMonthTest {
         Task t2 = new Task("8:45","9:45");
         WorkDay wd2 = new WorkDay(LocalDate.of(2016, 9, 1),420);
         wd2.addTask(t2);
-        WorkMonth wm = new WorkMonth();
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 9));
         wm.addWorkDay(wd);
         wm.addWorkDay(wd2);
         assertEquals(wm.getExtraMinPerMonth(),-705);         
@@ -61,7 +63,7 @@ public class WorkMonthTest {
     @Test
     public void getExtraTest2()
     {
-        WorkMonth wm = new WorkMonth();
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 9));
         assertEquals(wm.getExtraMinPerMonth(),0);
     }
     
@@ -71,7 +73,7 @@ public class WorkMonthTest {
     {
         WorkDay wd = new WorkDay(LocalDate.of(2016, 9, 5),420);
         WorkDay wd2 = new WorkDay(LocalDate.of(2016, 9, 1),420);
-        WorkMonth wm = new WorkMonth();
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 9));
         wm.addWorkDay(wd);
         wm.addWorkDay(wd2);
         assertEquals(wm.getRequiredMinPerMonth(),840);  
@@ -81,7 +83,8 @@ public class WorkMonthTest {
     @Test
     public void getReqTest2()
     {
-        assertEquals(new WorkMonth().getRequiredMinPerMonth(),0);
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 9));
+        assertEquals(wm.getRequiredMinPerMonth(),0);
     }
     
     // Test 7
@@ -91,7 +94,7 @@ public class WorkMonthTest {
         Task t = new Task("7:30","8:45");
         WorkDay wd = new WorkDay(LocalDate.of(2016,9,9));
         wd.addTask(t);
-        WorkMonth wm = new WorkMonth();
+        WorkMonth wm = new WorkMonth(YearMonth.of(9, 9));
         wm.addWorkDay(wd);
         assertEquals(wd.getSumPerDay(),wm.getSumPerMonth());
     }
@@ -103,7 +106,7 @@ public class WorkMonthTest {
         Task t = new Task("7:30","8:45");
         WorkDay wd = new WorkDay(LocalDate.of(2016,8,28));
         wd.addTask(t);
-        WorkMonth wm = new WorkMonth();
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 8));
         wm.setIsWeekendEnabled(true);
         wm.addWorkDay(wd);
         assertEquals(wd.getSumPerDay(),wm.getSumPerMonth() );
@@ -116,7 +119,7 @@ public class WorkMonthTest {
         Task t = new Task("7:30","8:45");
         WorkDay wd = new WorkDay(LocalDate.of(2016,8,28));
         wd.addTask(t);
-        WorkMonth wm = new WorkMonth();
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 8));
         wm.addWorkDay(wd);
     }
     
@@ -126,8 +129,32 @@ public class WorkMonthTest {
     {
         WorkDay wd = new WorkDay(LocalDate.of(2016, 9, 1));
         WorkDay wd2 = new WorkDay(LocalDate.of(2016, 9, 2));
-        WorkMonth wm = new WorkMonth();
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 9));
         wm.addWorkDay(wd);
         assertEquals(wm.isSameMonth(wd2), true);
     }
+    
+    // Test 11
+    @Test
+    public void isSameMonth()
+    {
+        WorkDay wd = new WorkDay(LocalDate.of(2016, 9, 1));
+        WorkDay wd2 = new WorkDay(LocalDate.of(2016, 8, 30));
+         WorkMonth wm = new WorkMonth(YearMonth.of(2016, 9));
+        wm.addWorkDay(wd);
+        assertEquals(wm.isSameMonth(wd2), false);
+    }
+    
+    // Test 12
+    @Test
+    public void isSameMonth2()
+    {
+        WorkDay wd = new WorkDay(LocalDate.of(2016, 9, 1));
+        WorkMonth wm = new WorkMonth(YearMonth.of(2016, 9));
+        wm.addWorkDay(wd);
+        assertEquals(wm.isSameMonth(wd), true);
+    }
+    
+    // Test 13
+    
 }

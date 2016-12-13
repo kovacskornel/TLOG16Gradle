@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author precognox
  */
 public class TimeLogger{
-    private List<WorkMonth> months = new ArrayList<>();
+    private final List<WorkMonth> months = new ArrayList<>();
     
     public List<WorkMonth> getMonths()
     {
